@@ -4,6 +4,13 @@
 
 Get and save images from jump web viewer.
 
+## Install
+
+```bash
+# Python>=3.9
+pip install getjump
+```
+
 ## Library
 
 ```python
