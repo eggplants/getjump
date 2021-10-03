@@ -36,16 +36,16 @@ class GetJump:
         series_title = j["series"]["title"]
         title = j["title"]
 
-        if not j["isPublic"] and not j["hasPurchased"]:
-            warnings.warn(title, NeedPurchase, stacklevel=1)
-            return next, title
-        else:
-            pages = j["pageStructure"]["pages"]
-
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
-            return next, title
+            return next, save_dir
         os.makedirs(save_dir, exist_ok=True)
+
+        if not j["isPublic"] and not j["hasPurchased"]:
+            warnings.warn(title, NeedPurchase, stacklevel=1)
+            return next, save_dir
+        else:
+            pages = j["pageStructure"]["pages"]
 
         self.__save_images(pages, save_dir)
 
@@ -113,6 +113,10 @@ class GetJump:
             return 23
         elif width == 720:
             return 15
+        elif width == 704:
+            return 0
+        elif width == 1125:
+            return 2
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
