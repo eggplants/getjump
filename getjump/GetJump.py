@@ -117,6 +117,8 @@ class GetJump:
             return 0
         elif width == 1125:
             return 2
+        elif width == 1128:
+            return 6
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
