@@ -34,3 +34,13 @@ optional arguments:
 $ jget https://shonenjumpplus.com/episode/13932016480028799982.json
 saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
 ```
+
+## License
+
+MIT
+
+
+## Reference
+
+- [fa0311/jump-downloader](https://github.com/fa0311/jump-downloader)
+- [少年ジャンププラスの漫画をダウンロードするライブラリ - yuki0311.com](https://blog.yuki0311.com/jumppuls_downloader/)
