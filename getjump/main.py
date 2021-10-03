@@ -52,7 +52,7 @@ def parse_args(test: Optional[list[str]] = None) -> argparse.Namespace:
         "-b",
         "--bulk",
         action="store_true",
-        help="download in bulk or not",
+        help="download series in bulk or not",
     )
 
     if test:
