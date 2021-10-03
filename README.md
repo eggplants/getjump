@@ -6,6 +6,11 @@ Get and save images from jump web viewer
 
 *Note: Secondary distribution of downloaded image data is prohibited. Please keep it to private use.*
 
+## Available Site
+
+- `https://shonenjumpplus.com/episode/***.json`
+- `https://comic-days.com/episode/***.json`
+
 ## Install
 
 ```bash
