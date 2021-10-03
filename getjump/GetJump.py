@@ -93,6 +93,8 @@ class GetJump:
             return 16
         elif height == 1600:
             return 0
+        elif height == 1024:
+            return 0
         else:
             raise ValueError(
                 "Unfamiliar height (please let me know with issue <https://git.io/J2jV3>): %d"
@@ -109,6 +111,8 @@ class GetJump:
             return 22
         elif width == 1114:
             return 23
+        elif width == 720:
+            return 15
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
