@@ -32,7 +32,7 @@ optional arguments:
   -d SAVEDIR, --savedir SAVEDIR
                         directory to save downloaded images
   -o, --overwrite       overwrite or not
-  -b, --bulk            download in bulk or not
+  -b, --bulk            download series in bulk or not
 $ jget https://shonenjumpplus.com/episode/13932016480028799982.json
 saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
 ```
