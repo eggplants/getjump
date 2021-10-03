@@ -54,6 +54,15 @@ next: https://shonenjumpplus.com/episode/10833519556325022128.json
 saved: ./こちら葛飾区亀有公園前派出所/[第3話]こちら葛飾区亀有公園前派出所
 next: https://shonenjumpplus.com/episode/10833519556325022500.json
 ...
+saved: ./こちら葛飾区亀有公園前派出所/[第1950話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744844.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1951話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744845.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1952話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744846.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1953話]こちら葛飾区亀有公園前派出所
+next: None
+$
 ```
 
 ## License
