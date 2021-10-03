@@ -103,7 +103,10 @@ class GetJump:
         elif width == 822:
             return 22
         else:
-            raise ValueError(width)
+            raise ValueError(
+                "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
+                % width
+            )
 
 
 def main() -> None:
