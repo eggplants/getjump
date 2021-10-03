@@ -42,13 +42,10 @@ class GetJump:
         else:
             pages = j["pageStructure"]["pages"]
 
-        if os.path.exists(save_path):
-            save_dir = os.path.join(save_path, series_title, title)
-            if os.path.exists(save_dir) and not overwrite:
-                return next, title
-            os.makedirs(save_dir, exist_ok=True)
-        else:
-            raise FileNotFoundError(save_path)
+        save_dir = os.path.join(save_path, series_title, title)
+        if os.path.exists(save_dir) and not overwrite:
+            return next, title
+        os.makedirs(save_dir, exist_ok=True)
 
         self.__save_images(pages, save_dir)
 
@@ -76,12 +73,8 @@ class GetJump:
         img = cv2.imdecode(img, cv2.IMREAD_COLOR)
         offset = 4
         height, width = img.shape[:2]
-        dice_height = int((height - 16) / offset)
+        dice_height = int((height - self.__get_height_gap(height)) / offset)
         dice_width = int((width - self.__get_width_gap(width)) / offset)
-        # memo
-        # 760: -24
-        # 764: -25
-        # 822: -22
         pieces = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
         for x in range(offset):
             for y in range(offset):
@@ -95,6 +88,18 @@ class GetJump:
         return img
 
     @staticmethod
+    def __get_height_gap(height: int) -> int:
+        if height == 1200:
+            return 16
+        elif height == 1600:
+            return 0
+        else:
+            raise ValueError(
+                "Unfamiliar height (please let me know with issue <https://git.io/J2jV3>): %d"
+                % height
+            )
+
+    @staticmethod
     def __get_width_gap(width: int) -> int:
         if width == 760:
             return 24
@@ -102,6 +107,8 @@ class GetJump:
             return 25
         elif width == 822:
             return 22
+        elif width == 1114:
+            return 23
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
