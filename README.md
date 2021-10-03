@@ -27,19 +27,20 @@ while next_uri:
 
 ```shellsession
 $ jget -h
-usage: jget [-h] [-d SAVEDIR] [-o] [-b] url
+usage: jget [-h] [-d DIR] [-o] [-b] url
 
 Get images from jump web viewer
 
 positional arguments:
-  url                   target url (ex: https://shonenjumpplus.com/episode/***.json)
+  url                   target url (ex:
+                        https://shonenjumpplus.com/episode/***.json)
 
 optional arguments:
   -h, --help            show this help message and exit
-  -d SAVEDIR, --savedir SAVEDIR
-                        directory to save downloaded images
-  -o, --overwrite       overwrite or not
-  -b, --bulk            download series in bulk or not
+  -d DIR, --savedir DIR
+                        directory to save downloaded images (default: .)
+  -o, --overwrite       overwrite or not (default: False)
+  -b, --bulk            download series in bulk or not (default: False)
 $ jget https://shonenjumpplus.com/episode/13932016480028799982.json
 saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
 $ jget -b https://shonenjumpplus.com/episode/10833519556325021912.json

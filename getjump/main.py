@@ -25,7 +25,7 @@ def parse_args(test: Optional[list[str]] = None) -> argparse.Namespace:
     """Parse arguments."""
     parser = argparse.ArgumentParser(
         prog="jget",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="Get images from jump web viewer",
     )
 
@@ -39,6 +39,7 @@ def parse_args(test: Optional[list[str]] = None) -> argparse.Namespace:
         "-d",
         "--savedir",
         type=str,
+        metavar='DIR',
         default=".",
         help="directory to save downloaded images",
     )
