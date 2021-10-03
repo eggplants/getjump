@@ -4,7 +4,7 @@
 
 Get and save images from jump web viewer
 
-*Note: Secondary distribution of downloaded image data is prohibited. Please keep it to private use*
+*Note: Secondary distribution of downloaded image data is prohibited. Please keep it to private use.*
 
 ## Install
 
