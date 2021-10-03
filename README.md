@@ -1,8 +1,15 @@
 # getjump
 
-[![PyPI version](https://badge.fury.io/py/getjump.svg)](https://badge.fury.io/py/getjump)
+[![PyPI version](https://badge.fury.io/py/getjump.svg)](https://badge.fury.io/py/getjump) [![Maintainability](https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability)](https://codeclimate.com/github/eggplants/getjump/maintainability)
 
 Get and save images from jump web viewer.
+
+## Install
+
+```bash
+# Python>=3.9
+pip install getjump
+```
 
 ## Library
 
