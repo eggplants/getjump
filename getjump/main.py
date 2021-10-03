@@ -39,7 +39,7 @@ def parse_args(test: Optional[list[str]] = None) -> argparse.Namespace:
         "-d",
         "--savedir",
         type=str,
-        metavar='DIR',
+        metavar="DIR",
         default=".",
         help="directory to save downloaded images",
     )
