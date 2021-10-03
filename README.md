@@ -2,7 +2,9 @@
 
 [![PyPI version](https://badge.fury.io/py/getjump.svg)](https://badge.fury.io/py/getjump) [![Maintainability](https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability)](https://codeclimate.com/github/eggplants/getjump/maintainability)
 
-Get and save images from jump web viewer.
+Get and save images from jump web viewer
+
+*Note: Secondary distribution of downloaded image data is prohibited. Please keep it to private use*
 
 ## Install
 
