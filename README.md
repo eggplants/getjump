@@ -1,4 +1,4 @@
-# jumpget
+# getjump
 
 [![PyPI version](https://badge.fury.io/py/getjump.svg)](https://badge.fury.io/py/getjump)
 
