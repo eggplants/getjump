@@ -49,7 +49,6 @@ next: https://shonenjumpplus.com/episode/10833519556325022500.json
 
 MIT
 
-
 ## Reference
 
 - [fa0311/jump-downloader](https://github.com/fa0311/jump-downloader)
