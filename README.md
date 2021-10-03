@@ -1,11 +1,13 @@
 # jumpget
 
+[![PyPI version](https://badge.fury.io/py/getjump.svg)](https://badge.fury.io/py/getjump)
+
 Get and save images from jump web viewer.
 
 ## Library
 
 ```python
-from getjump import GetJump as gj
+from getjump import GetJump as g
 
 next_uri = "https://shonenjumpplus.com/episode/13932016480028799982.json"
 while next_uri:
