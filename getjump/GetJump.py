@@ -1,6 +1,6 @@
 import os
 import warnings
-from typing import Any
+from typing import Any, Optional
 
 import cv2
 import numpy as np
@@ -32,13 +32,13 @@ class GetJump:
         save_path: str = ".",
         overwrite: bool = True,
         only_first: bool = False,
-    ) -> tuple[str, str]:
+    ) -> tuple[Optional[str], str]:
         r = requests.get(url, headers=HEADERS)
         if r.status_code != 200:
             raise ConnectionError(r.status_code)
         j = r.json()["readableProduct"]
         next = j["nextReadableProductUri"]
-        next = next + ".json" if type(next) is str else next
+        next = self.__check_next(next)
         series_title = j["series"]["title"].replace("/", "／")
         title = j["title"].replace("/", "／")
 
@@ -56,6 +56,10 @@ class GetJump:
         self.__save_images(pages, save_dir, only_first)
 
         return next, save_dir
+
+    @staticmethod
+    def __check_next(next: Optional[str]) -> Optional[str]:
+        return next + ".json" if type(next) is str else next
 
     def __save_images(
         self, pages: list[Any], save_dir: str, only_first: bool = False
@@ -128,16 +132,3 @@ class GetJump:
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
                 % width
             )
-
-
-def main() -> None:
-    g = GetJump()
-    next_uri = "https://shonenjumpplus.com/episode/13932016480028799982.json"
-    while next_uri:
-        next_uri, prev_title = g.get(next_uri, overwrite=False)
-        print("saved:", prev_title)
-        print("next:", next_uri)
-
-
-if __name__ == "__main__":
-    main()
