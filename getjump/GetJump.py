@@ -7,90 +7,14 @@ import numpy as np
 import numpy.typing as npt
 import requests
 
+from .margin import HEIGHT_GAP, WIDTH_GAP
+
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/67.0.3396.99 Safari/537.36"
     )
-}
-
-HEIGHT_GAP = {
-    448: None,
-    472: None,
-    480: None,
-    584: None,
-    626: None,
-    670: None,
-    700: None,
-    774: None,
-    798: None,
-    954: None,
-    960: None,
-    1000: 6,
-    1024: 0,
-    1122: None,
-    1154: None,
-    1161: None,
-    1163: None,
-    1195: None,
-    1200: 16,
-    1400: None,
-    1489: None,
-    1600: 0,
-    1603: None,
-    1687: None,
-    1811: 16,
-    1826: 0,
-    2000: 16,
-    2048: 0,
-    2062: None,
-    2100: None,
-}
-
-WIDTH_GAP = {
-    332: None,
-    426: None,
-    438: None,
-    475: None,
-    575: None,
-    656: None,  # ########
-    658: None,
-    667: None,  # ########
-    690: 16,
-    698: None,
-    704: 0,
-    712: None,  # #######
-    720: 15,
-    760: 24,
-    764: 25,
-    820: 20,
-    822: 22,
-    836: 4,
-    840: None,
-    844: 10,
-    958: None,
-    980: None,
-    1042: None,  # ####
-    1070: None,  # ######
-    1073: None,
-    1093: None,
-    1114: 23,
-    1115: None,  # #####
-    1120: None,  # #
-    1121: 0,
-    1125: 2,
-    1127: 5,
-    1128: 6,
-    1326: 12,
-    1394: None,
-    1408: None,
-    1440: None,  # ########
-    1441: None,  # top
-    1443: None,  # ##
-    1444: None,  # ###
-    1453: None,
-    1480: None,
 }
 
 
@@ -115,8 +39,8 @@ class GetJump:
         j = r.json()["readableProduct"]
         next = j["nextReadableProductUri"]
         next = next + ".json" if type(next) is str else next
-        series_title = j["series"]["title"]
-        title = j["title"]
+        series_title = j["series"]["title"].replace("/", "／")
+        title = j["title"].replace("/", "／")
 
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
