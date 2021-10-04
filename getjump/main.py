@@ -33,7 +33,13 @@ def parse_args(test: Optional[list[str]] = None) -> argparse.Namespace:
         "url",
         metavar="url",
         type=str,
-        help="target url (ex: https://shonenjumpplus.com/episode/***.json)",
+        help="target url",
+    )
+    parser.add_argument(
+        "-b",
+        "--bulk",
+        action="store_true",
+        help="download series in bulk",
     )
     parser.add_argument(
         "-d",
@@ -44,16 +50,16 @@ def parse_args(test: Optional[list[str]] = None) -> argparse.Namespace:
         help="directory to save downloaded images",
     )
     parser.add_argument(
+        "-f",
+        "--first",
+        action="store_true",
+        help="download only first page",
+    )
+    parser.add_argument(
         "-o",
         "--overwrite",
         action="store_true",
-        help="overwrite or not",
-    )
-    parser.add_argument(
-        "-b",
-        "--bulk",
-        action="store_true",
-        help="download series in bulk or not",
+        help="overwrite",
     )
 
     if test:
@@ -71,13 +77,19 @@ def main() -> None:
     if args.bulk:
         while next_uri:
             next_uri, prev_title = g.get(
-                next_uri, save_path=args.savedir, overwrite=args.overwrite
+                next_uri,
+                save_path=args.savedir,
+                overwrite=args.overwrite,
+                only_first=args.first,
             )
             print("saved:", prev_title)
             print("next:", next_uri)
     else:
         next_uri, prev_title = g.get(
-            next_uri, save_path=args.savedir, overwrite=args.overwrite
+            next_uri,
+            save_path=args.savedir,
+            overwrite=args.overwrite,
+            only_first=args.first,
         )
         print("saved:", prev_title)
 
