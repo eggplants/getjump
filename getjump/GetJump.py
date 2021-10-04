@@ -89,11 +89,13 @@ class GetJump:
 
     @staticmethod
     def __get_height_gap(height: int) -> int:
-        if height == 1200:
-            return 16
-        elif height == 1024:
+        if height == 1024:
             return 0
+        elif height == 1200:
+            return 16
         elif height == 1600:
+            return 0
+        elif height == 2048:
             return 0
         else:
             raise ValueError(
@@ -115,10 +117,16 @@ class GetJump:
             return 22
         elif width == 1114:
             return 23
+        elif width == 1121:
+            return 0
         elif width == 1125:
             return 2
+        elif width == 1127:
+            return 5
         elif width == 1128:
             return 6
+        elif width == 1326:
+            return 12
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
