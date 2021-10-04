@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="getjump",
-    version="0.7",
+    version="0.8",
     description="Get and save images from jump web viewer",
     description_content_type="",
     long_description=open("README.md").read(),
