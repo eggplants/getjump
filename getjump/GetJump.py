@@ -19,6 +19,9 @@ HEIGHT_GAP = {
     1024: 0,
     1200: 16,
     1600: 0,
+    1811: 16,
+    1826: 0,
+    2000: 16,
     2048: 0,
 }
 
@@ -27,7 +30,10 @@ WIDTH_GAP = {
     720: 15,
     760: 24,
     764: 25,
+    820: 20,
     822: 22,
+    836: 4,
+    844: 10,
     1114: 23,
     1121: 0,
     1125: 2,
@@ -46,7 +52,11 @@ class GetJump:
         pass
 
     def get(
-        self, url: str, save_path: str = ".", overwrite: bool = True
+        self,
+        url: str,
+        save_path: str = ".",
+        overwrite: bool = True,
+        only_first: bool = False,
     ) -> tuple[str, str]:
         r = requests.get(url, headers=HEADERS)
         if r.status_code != 200:
@@ -68,17 +78,21 @@ class GetJump:
         else:
             pages = j["pageStructure"]["pages"]
 
-        self.__save_images(pages, save_dir)
+        self.__save_images(pages, save_dir, only_first)
 
         return next, save_dir
 
-    def __save_images(self, pages: list[Any], save_dir: str) -> None:
+    def __save_images(
+        self, pages: list[Any], save_dir: str, only_first: bool = False
+    ) -> None:
         imgs = []
         for page in pages:
             if "src" not in page:
                 continue
             img = self.__get_image(page)
             imgs.append(img)
+            if only_first:
+                break
 
         len_page_digit = len(str(len(imgs)))
         for idx, img in enumerate(imgs):
