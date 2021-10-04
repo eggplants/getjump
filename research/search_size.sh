@@ -24,7 +24,7 @@ done |
   done > episodes
 
 sed -n '/width/p;/height/p' episodes |
-  sort | uniq > all_size
+  sort | uniq | sort -V > all_size
 sed -n '/width/p' episodes |
   sort | uniq -c | sort -rnk1 > width_rank
 sed -n '/height/p' episodes |
