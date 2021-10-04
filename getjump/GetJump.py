@@ -54,13 +54,13 @@ WIDTH_GAP = {
     438: None,
     475: None,
     575: None,
-    656: None,  #########
+    656: None,  # ########
     658: None,
-    667: None,  #########
+    667: None,  # ########
     690: 16,
     698: None,
     704: 0,
-    712: None,  ########
+    712: None,  # #######
     720: 15,
     760: 24,
     764: 25,
@@ -71,13 +71,13 @@ WIDTH_GAP = {
     844: 10,
     958: None,
     980: None,
-    1042: None,  #####
-    1070: None,  #######
+    1042: None,  # ####
+    1070: None,  # ######
     1073: None,
     1093: None,
     1114: 23,
-    1115: None,  ######
-    1120: None,  ##
+    1115: None,  # #####
+    1120: None,  # #
     1121: 0,
     1125: 2,
     1127: 5,
@@ -85,10 +85,10 @@ WIDTH_GAP = {
     1326: 12,
     1394: None,
     1408: None,
-    1440: None,  #########
-    1441: None,  #
-    1443: None,  ###
-    1444: None,  ####
+    1440: None,  # ########
+    1441: None,  # top
+    1443: None,  # ##
+    1444: None,  # ###
     1453: None,
     1480: None,
 }
@@ -182,7 +182,7 @@ class GetJump:
                     % height
                 )
             else:
-                return HEIGHT_GAP[height]
+                return HEIGHT_GAP[height]  # type: ignore
         else:
             raise ValueError(
                 "Unfamiliar height (please let me know with issue <https://git.io/J2jV3>): %d"
@@ -198,7 +198,7 @@ class GetJump:
                     % width
                 )
             else:
-                return WIDTH_GAP[width]
+                return WIDTH_GAP[width]  # type: ignore
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
