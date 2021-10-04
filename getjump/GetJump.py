@@ -15,6 +15,27 @@ HEADERS = {
     )
 }
 
+HEIGHT_GAP = {
+    1024: 0,
+    1200: 16,
+    1600: 0,
+    2048: 0,
+}
+
+WIDTH_GAP = {
+    704: 0,
+    720: 15,
+    760: 24,
+    764: 25,
+    822: 22,
+    1114: 23,
+    1121: 0,
+    1125: 2,
+    1127: 5,
+    1128: 6,
+    1326: 12,
+}
+
 
 class NeedPurchase(Warning):
     pass
@@ -89,14 +110,8 @@ class GetJump:
 
     @staticmethod
     def __get_height_gap(height: int) -> int:
-        if height == 1024:
-            return 0
-        elif height == 1200:
-            return 16
-        elif height == 1600:
-            return 0
-        elif height == 2048:
-            return 0
+        if height in HEIGHT_GAP:
+            return HEIGHT_GAP[height]
         else:
             raise ValueError(
                 "Unfamiliar height (please let me know with issue <https://git.io/J2jV3>): %d"
@@ -105,28 +120,8 @@ class GetJump:
 
     @staticmethod
     def __get_width_gap(width: int) -> int:
-        if width == 704:
-            return 0
-        elif width == 720:
-            return 15
-        elif width == 760:
-            return 24
-        elif width == 764:
-            return 25
-        elif width == 822:
-            return 22
-        elif width == 1114:
-            return 23
-        elif width == 1121:
-            return 0
-        elif width == 1125:
-            return 2
-        elif width == 1127:
-            return 5
-        elif width == 1128:
-            return 6
-        elif width == 1326:
-            return 12
+        if width in WIDTH_GAP:
+            return WIDTH_GAP[width]
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
