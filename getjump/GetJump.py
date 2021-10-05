@@ -1,13 +1,13 @@
 import os
 import warnings
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 import cv2
 import numpy as np
 import numpy.typing as npt
 import requests
 
-from .margin import HEIGHT_GAP, WIDTH_GAP
+from .gap import HEIGHT_GAP, WIDTH_GAP
 
 HEADERS = {
     "User-Agent": (
@@ -110,7 +110,8 @@ class GetJump:
                     % height
                 )
             else:
-                return HEIGHT_GAP[height]  # type: ignore
+                gap = cast("int", HEIGHT_GAP[height])
+                return gap
         else:
             raise ValueError(
                 "Unfamiliar height (please let me know with issue <https://git.io/J2jV3>): %d"
@@ -126,7 +127,8 @@ class GetJump:
                     % width
                 )
             else:
-                return WIDTH_GAP[width]  # type: ignore
+                gap = cast("int", WIDTH_GAP[width])
+                return gap
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
