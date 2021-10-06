@@ -1,4 +1,6 @@
-HEIGHT_GAP = {
+from typing import Optional
+
+HEIGHT_GAP: dict[int, Optional[int]] = {
     448: 0,
     472: 24,
     480: 0,
@@ -256,7 +258,7 @@ HEIGHT_GAP = {
     2785: None,
 }
 
-WIDTH_GAP = {
+WIDTH_GAP: dict[int, Optional[int]] = {
     332: 10,
     426: 8,
     438: 20,

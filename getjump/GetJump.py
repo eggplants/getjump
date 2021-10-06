@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 import numpy.typing as npt
 import requests
-
+import sys
 from .gap import HEIGHT_GAP, WIDTH_GAP
 
 HEADERS = {
@@ -34,8 +34,8 @@ class GetJump:
         only_first: bool = False,
     ) -> tuple[Optional[str], str]:
         r = requests.get(url, headers=HEADERS)
-        if r.status_code != 200:
-            raise ConnectionError(r.status_code)
+        if "application/json" not in r.headers["content-type"]:
+            raise TypeError(r.headers["content-type"] + " is not application/json")
         j = r.json()["readableProduct"]
         next = j["nextReadableProductUri"]
         next = self.__check_next(next)
@@ -44,6 +44,7 @@ class GetJump:
 
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
+            print("already existed! (to overwrite, use `-o`)", file=sys.stderr)
             return next, save_dir
         os.makedirs(save_dir, exist_ok=True)
 
@@ -51,7 +52,7 @@ class GetJump:
             warnings.warn(title, NeedPurchase, stacklevel=1)
             return next, save_dir
         else:
-            pages = j["pageStructure"]["pages"]
+            pages = [p for p in j["pageStructure"]["pages"] if "src" in p]
 
         self.__save_images(pages, save_dir, only_first)
 
@@ -66,8 +67,6 @@ class GetJump:
     ) -> None:
         imgs = []
         for page in pages:
-            if "src" not in page:
-                continue
             img = self.__get_image(page)
             imgs.append(img)
             if only_first:
