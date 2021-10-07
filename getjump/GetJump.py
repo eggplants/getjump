@@ -1,4 +1,6 @@
 import os
+import re
+import sys
 import warnings
 from typing import Any, Optional, cast
 
@@ -6,7 +8,7 @@ import cv2
 import numpy as np
 import numpy.typing as npt
 import requests
-import sys
+
 from .gap import HEIGHT_GAP, WIDTH_GAP
 
 HEADERS = {
@@ -33,34 +35,57 @@ class GetJump:
         overwrite: bool = True,
         only_first: bool = False,
     ) -> tuple[Optional[str], str]:
+        self.__check_url(url)
         r = requests.get(url, headers=HEADERS)
-        if "application/json" not in r.headers["content-type"]:
-            raise TypeError(r.headers["content-type"] + " is not application/json")
+        self.__check_content_type(r.headers["content-type"])
         j = r.json()["readableProduct"]
-        next = j["nextReadableProductUri"]
-        next = self.__check_next(next)
+        nxt = j["nextReadableProductUri"]
+        nxt = self.__check_next(nxt)
         series_title = j["series"]["title"].replace("/", "／")
         title = j["title"].replace("/", "／")
 
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
             print("already existed! (to overwrite, use `-o`)", file=sys.stderr)
-            return next, save_dir
+            return nxt, save_dir
         os.makedirs(save_dir, exist_ok=True)
 
         if not j["isPublic"] and not j["hasPurchased"]:
             warnings.warn(title, NeedPurchase, stacklevel=1)
-            return next, save_dir
+            return nxt, save_dir
         else:
             pages = [p for p in j["pageStructure"]["pages"] if "src" in p]
 
         self.__save_images(pages, save_dir, only_first)
 
-        return next, save_dir
+        return nxt, save_dir
 
     @staticmethod
-    def __check_next(next: Optional[str]) -> Optional[str]:
-        return next + ".json" if type(next) is str else next
+    def is_valid_uri(url: str) -> bool:
+        pattern = re.compile(
+            r"""
+            ^https://(?:pocket\.shonenmagazine\.com
+            |(?:(?:viewer\.heros\-web|shonenjumpplus|comicbushi\-web
+            |comic(?:\-(?:action|gardo|trail|zenon)|border)
+            |kuragebunch|comic\-days|magcomi)\.com
+            |(?:tonarinoyj|feelweb)\.jp))/episode/\d+.json$
+            """,
+            re.X,
+        )
+        return type(url) is str and bool(pattern.match(url))
+
+    def __check_url(self, url: str) -> None:
+        if not self.is_valid_uri(url):
+            raise ValueError("'{}' is not valid url.".format(url))
+
+    @staticmethod
+    def __check_content_type(type_: str) -> None:
+        if "application/json" not in type_:
+            raise TypeError(type_ + " is not application/json")
+
+    @staticmethod
+    def __check_next(nxt: Optional[str]) -> Optional[str]:
+        return nxt + ".json" if type(nxt) is str else nxt
 
     def __save_images(
         self, pages: list[Any], save_dir: str, only_first: bool = False
