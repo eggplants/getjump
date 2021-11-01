@@ -134,8 +134,7 @@ class GetJump:
                     % height
                 )
             else:
-                gap = cast("int", HEIGHT_GAP[height])
-                return gap
+                return HEIGHT_GAP[height]
         else:
             raise ValueError(
                 "Unfamiliar height (please let me know with issue <https://git.io/J2jV3>): %d"
@@ -151,8 +150,7 @@ class GetJump:
                     % width
                 )
             else:
-                gap = cast("int", WIDTH_GAP[width])
-                return gap
+                return WIDTH_GAP[width]
         else:
             raise ValueError(
                 "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
