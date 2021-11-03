@@ -4,7 +4,7 @@
 
 Retrieve and save images from manga distribution sites using [GigaViewer]()
 
-*Note: Secondary distribution of downloaded image data is prohibited. Please keep it to private use.*
+*Note: Redistribution of downloaded image data is prohibited. Please keep it to private use.*
 
 ## Available Site
 
@@ -62,8 +62,11 @@ optional arguments:
   -f, --first           download only first page (default: False)
   -o, --overwrite       overwrite (default: False)
 $ jget https://shonenjumpplus.com/episode/13932016480028799982.json
+get: https://shonenjumpplus.com/episode/13932016480028799982.json
 saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
+done.
 $ jget -b https://shonenjumpplus.com/episode/10833519556325021912.json
+get: https://shonenjumpplus.com/episode/10833519556325021912.json
 saved: ./こちら葛飾区亀有公園前派出所/[第1話]こちら葛飾区亀有公園前派出所
 next: https://shonenjumpplus.com/episode/10833519556325022016.json
 saved: ./こちら葛飾区亀有公園前派出所/[第2話]こちら葛飾区亀有公園前派出所
@@ -78,13 +81,19 @@ next: https://shonenjumpplus.com/episode/13932016480028744845.json
 saved: ./こちら葛飾区亀有公園前派出所/[第1952話]こちら葛飾区亀有公園前派出所
 next: https://shonenjumpplus.com/episode/13932016480028744846.json
 saved: ./こちら葛飾区亀有公園前派出所/[第1953話]こちら葛飾区亀有公園前派出所
-next: None
+done.
 $
 ```
+
+## Screenshot
+
+![image](https://user-images.githubusercontent.com/42153744/149340703-2316f14f-e18a-4792-ba3a-7126db96f243.png)
 
 ## License
 
 MIT
+
+---
 
 ## Reference
 
