@@ -87,7 +87,7 @@ $
 
 ## Screenshot
 
-![image](https://user-images.githubusercontent.com/42153744/149340703-2316f14f-e18a-4792-ba3a-7126db96f243.png)
+![image](https://user-images.githubusercontent.com/42153744/149342180-1131ac3f-2d9b-4938-bf5c-c1b8fb52072b.png)
 
 ## License
 
