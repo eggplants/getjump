@@ -34,7 +34,7 @@ class GetJump:
         save_path: str = ".",
         overwrite: bool = True,
         only_first: bool = False,
-    ) -> tuple[Optional[str], str]:
+    ) -> tuple[Optional[str], str, bool]:
         self.__check_url(url)
         r = requests.get(url, headers=HEADERS)
         self.__check_content_type(r.headers["content-type"])
@@ -47,18 +47,18 @@ class GetJump:
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
             print("already existed! (to overwrite, use `-o`)", file=sys.stderr)
-            return nxt, save_dir
+            return nxt, save_dir, False
         os.makedirs(save_dir, exist_ok=True)
 
         if not j["isPublic"] and not j["hasPurchased"]:
             warnings.warn(title, NeedPurchase, stacklevel=1)
-            return nxt, save_dir
+            return nxt, save_dir, False
         else:
             pages = [p for p in j["pageStructure"]["pages"] if "src" in p]
 
         self.__save_images(pages, save_dir, only_first)
 
-        return nxt, save_dir
+        return nxt, save_dir, True
 
     @staticmethod
     def is_valid_uri(url: str) -> bool:

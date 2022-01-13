@@ -121,13 +121,14 @@ def get_bulk(args: argparse.Namespace) -> None:
     print("get:", next_uri)
     while next_uri:
         # print("get:", next_uri)
-        next_uri, prev_title = g.get(
+        next_uri, prev_title, ok = g.get(
             next_uri,
             save_path=args.savedir,
             overwrite=args.overwrite,
             only_first=args.first,
         )
-        print("saved:", prev_title)
+        if ok:
+            print("saved:", prev_title)
         if next_uri is not None:
             print("next:", next_uri)
     else:
@@ -138,13 +139,14 @@ def get_one(args: argparse.Namespace) -> None:
     g = GetJump()
     next_uri = args.url
     print("get:", next_uri)
-    _, prev_title = g.get(
+    _, prev_title, ok = g.get(
         next_uri,
         save_path=args.savedir,
         overwrite=args.overwrite,
         only_first=args.first,
     )
-    print("saved:", prev_title)
+    if ok:
+        print("saved:", prev_title)
     print("done.")
 
 
