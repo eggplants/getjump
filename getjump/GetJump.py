@@ -4,7 +4,7 @@ import sys
 import warnings
 from typing import Any, Dict, List, Optional, Tuple, cast
 
-import cv2
+import cv2  # type: ignore
 import numpy as np
 import numpy.typing as npt
 import requests
@@ -123,7 +123,7 @@ class GetJump:
                 pieces[y][x] = piece
 
         img = cv2.vconcat([cv2.hconcat(x) for x in pieces])
-        return img
+        return cast(npt.ArrayLike, img)
 
     @staticmethod
     def __get_height_gap(height: int) -> int:
