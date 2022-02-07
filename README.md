@@ -47,6 +47,35 @@ while next_uri:
 
 ## CLI
 
+### Usage
+
+```shellsession
+$ jget https://shonenjumpplus.com/episode/13932016480028799982.json
+get: https://shonenjumpplus.com/episode/13932016480028799982.json
+saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
+done.
+
+$ jget -b https://shonenjumpplus.com/episode/10833519556325021912.json
+get: https://shonenjumpplus.com/episode/10833519556325021912.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/10833519556325022016.json
+saved: ./こちら葛飾区亀有公園前派出所/[第2話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/10833519556325022128.json
+saved: ./こちら葛飾区亀有公園前派出所/[第3話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/10833519556325022500.json
+...
+saved: ./こちら葛飾区亀有公園前派出所/[第1950話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744844.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1951話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744845.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1952話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744846.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1953話]こちら葛飾区亀有公園前派出所
+done.
+```
+
+### Help
+
 ```shellsession
 $ jget -h
 usage: jget [-h] [-b] [-d DIR] [-f] [-o] url
@@ -79,28 +108,6 @@ available urls:
   - https://www.sunday-webry.com/episode/***.json
   - https://tonarinoyj.jp/episode/***.json
   - https://viewer.heros-web.com/episode/***.json
-$ jget https://shonenjumpplus.com/episode/13932016480028799982.json
-get: https://shonenjumpplus.com/episode/13932016480028799982.json
-saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
-done.
-$ jget -b https://shonenjumpplus.com/episode/10833519556325021912.json
-get: https://shonenjumpplus.com/episode/10833519556325021912.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/10833519556325022016.json
-saved: ./こちら葛飾区亀有公園前派出所/[第2話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/10833519556325022128.json
-saved: ./こちら葛飾区亀有公園前派出所/[第3話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/10833519556325022500.json
-...
-saved: ./こちら葛飾区亀有公園前派出所/[第1950話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/13932016480028744844.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1951話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/13932016480028744845.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1952話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/13932016480028744846.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1953話]こちら葛飾区亀有公園前派出所
-done.
-$
 ```
 
 ## Screenshot
