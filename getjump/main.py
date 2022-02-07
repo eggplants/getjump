@@ -2,7 +2,7 @@ import argparse
 import http.client as httplib
 import sys
 from shutil import get_terminal_size
-from typing import Optional
+from typing import List, Optional
 
 from .GetJump import GetJump
 
@@ -56,7 +56,7 @@ def check_url(v: str) -> str:
         raise argparse.ArgumentTypeError(f"'{v}' is invalid.\n" + available_list())
 
 
-def parse_args(test: Optional[list[str]] = None) -> argparse.Namespace:
+def parse_args(test: Optional[List[str]] = None) -> argparse.Namespace:
     """Parse arguments."""
     parser = argparse.ArgumentParser(
         prog="jget",
