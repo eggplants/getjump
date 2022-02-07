@@ -2,7 +2,7 @@ import os
 import re
 import sys
 import warnings
-from typing import Any, Optional, cast
+from typing import Any, Dict, List, Optional, Tuple, cast
 
 import cv2
 import numpy as np
@@ -34,7 +34,7 @@ class GetJump:
         save_path: str = ".",
         overwrite: bool = True,
         only_first: bool = False,
-    ) -> tuple[Optional[str], str, bool]:
+    ) -> Tuple[Optional[str], str, bool]:
         self.__check_url(url)
         r = requests.get(url, headers=HEADERS)
         self.__check_content_type(r.headers["content-type"])
@@ -88,7 +88,7 @@ class GetJump:
         return nxt + ".json" if type(nxt) is str else nxt
 
     def __save_images(
-        self, pages: list[Any], save_dir: str, only_first: bool = False
+        self, pages: List[Any], save_dir: str, only_first: bool = False
     ) -> None:
         imgs = []
         for page in pages:
@@ -104,7 +104,7 @@ class GetJump:
             )
             cv2.imwrite(save_img_path, img)
 
-    def __get_image(self, image_dic: dict[str, Any]) -> npt.ArrayLike:
+    def __get_image(self, image_dic: Dict[str, Any]) -> npt.ArrayLike:
         src = image_dic["src"]
         img = requests.get(src, stream=True).raw
         img = np.asarray(bytearray(img.read()), dtype="uint8")
