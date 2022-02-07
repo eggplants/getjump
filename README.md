@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/getjump.svg)](https://badge.fury.io/py/getjump) [![Maintainability](https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability)](https://codeclimate.com/github/eggplants/getjump/maintainability)
 
-Retrieve and save images from manga distribution sites using [GigaViewer]()
+Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
 
 *Note: Redistribution of downloaded image data is prohibited. Please keep it to private use.*
 
@@ -54,15 +54,31 @@ usage: jget [-h] [-b] [-d DIR] [-f] [-o] url
 Get images from jump web viewer
 
 positional arguments:
-  url                   target url
+  url                    target url
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -b, --bulk            download series in bulk (default: False)
-  -d DIR, --savedir DIR
-                        directory to save downloaded images (default: .)
-  -f, --first           download only first page (default: False)
-  -o, --overwrite       overwrite (default: False)
+  -h, --help             show this help message and exit
+  -b, --bulk             download series in bulk (default: False)
+  -d DIR, --savedir DIR  directory to save downloaded images (default: .)
+  -f, --first            download only first page (default: False)
+  -o, --overwrite        overwrite (default: False)
+
+available urls:
+  - https://comic-action.com/episode/***.json
+  - https://comic-days.com/episode/***.json
+  - https://comic-gardo.com/episode/***.json
+  - https://comic-trail.com/episode/***.json
+  - https://comic-zenon.com/episode/***.json
+  - https://comicborder.com/episode/***.json
+  - https://comicbushi-web.com/episode/***.json
+  - https://feelweb.jp/episode/***.json
+  - https://kuragebunch.com/episode/***.json
+  - https://magcomi.com/episode/***.json
+  - https://pocket.shonenmagazine.com/episode/***.json
+  - https://shonenjumpplus.com/episode/***.json
+  - https://www.sunday-webry.com/episode/***.json
+  - https://tonarinoyj.jp/episode/***.json
+  - https://viewer.heros-web.com/episode/***.json
 $ jget https://shonenjumpplus.com/episode/13932016480028799982.json
 get: https://shonenjumpplus.com/episode/13932016480028799982.json
 saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない

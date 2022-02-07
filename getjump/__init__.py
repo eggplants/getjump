@@ -1,4 +1,4 @@
-from .GetJump import GetJump
+from .GetJump import VALID_HOSTS, GetJump
 
-__version__ = '0.13'
-__all__ = ["GetJump"]
+__version__ = "0.13"
+__all__ = ["GetJump", "VALID_HOSTS"]

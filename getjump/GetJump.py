@@ -3,6 +3,7 @@ import re
 import sys
 import warnings
 from typing import Any, Dict, List, Optional, Tuple, cast
+from urllib.parse import urlparse
 
 import cv2  # type: ignore
 import numpy as np
@@ -18,6 +19,24 @@ HEADERS = {
         "Chrome/67.0.3396.99 Safari/537.36"
     )
 }
+
+VALID_HOSTS = (
+    "comic-action.com",
+    "comic-days.com",
+    "comic-gardo.com",
+    "comic-trail.com",
+    "comic-zenon.com",
+    "comicborder.com",
+    "comicbushi-web.com",
+    "feelweb.jp",
+    "kuragebunch.com",
+    "magcomi.com",
+    "pocket.shonenmagazine.com",
+    "shonenjumpplus.com",
+    "www.sunday-webry.com",
+    "tonarinoyj.jp",
+    "viewer.heros-web.com",
+)
 
 
 class NeedPurchase(Warning):
@@ -62,21 +81,17 @@ class GetJump:
 
     @staticmethod
     def is_valid_uri(url: str) -> bool:
-        pattern = re.compile(
-            r"""
-            ^https://(?:pocket\.shonenmagazine\.com
-            |(?:(?:viewer\.heros\-web|shonenjumpplus|comicbushi\-web
-            |comic(?:\-(?:action|gardo|trail|zenon)|border)
-            |kuragebunch|comic\-days|magcomi)\.com
-            |(?:tonarinoyj|feelweb)\.jp))/episode/\d+.json$
-            """,
-            re.X,
+        o = urlparse(url)
+        return (
+            type(url) is str
+            and o.scheme == "https"
+            and o.hostname in VALID_HOSTS
+            and bool(re.match(r"^/episode/[0-9]+\.json$", o.path))
         )
-        return type(url) is str and bool(pattern.match(url))
 
     def __check_url(self, url: str) -> None:
         if not self.is_valid_uri(url):
-            raise ValueError("'{}' is not valid url.".format(url))
+            raise ValueError(f"'{url}' is not valid url.")
 
     @staticmethod
     def __check_content_type(type_: str) -> None:

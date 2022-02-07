@@ -4,24 +4,7 @@ import sys
 from shutil import get_terminal_size
 from typing import List, Optional
 
-from .GetJump import GetJump
-
-AVAILABLE_URLS = [
-    "https://comic-action.com/episode/***.json",
-    "https://comic-days.com/episode/***.json",
-    "https://comic-gardo.com/episode/***.json",
-    "https://comic-trail.com/episode/***.json",
-    "https://comic-zenon.com/episode/***.json",
-    "https://comicborder.com/episode/***.json",
-    "https://comicbushi-web.com/episode/***.json",
-    "https://feelweb.jp/episode/***.json",
-    "https://kuragebunch.com/episode/***.json",
-    "https://magcomi.com/episode/***.json",
-    "https://pocket.shonenmagazine.com/episode/***.json",
-    "https://shonenjumpplus.com/episode/***.json",
-    "https://tonarinoyj.jp/episode/***.json",
-    "https://viewer.heros-web.com/episode/***.json",
-]
+from .GetJump import VALID_HOSTS, GetJump
 
 
 class GetJumpFormatter(
@@ -35,7 +18,11 @@ class HttpConnectionNotFountError(Exception):
 
 
 def available_list() -> str:
-    return "Available urls:\n- " + "\n- ".join(AVAILABLE_URLS)
+    return (
+        "available urls:\n  - https://"
+        + "/episode/***.json\n  - https://".join(VALID_HOSTS)
+        + "/episode/***.json"
+    )
 
 
 def check_connectivity(url: str = "www.google.com", timeout: int = 3) -> bool:
