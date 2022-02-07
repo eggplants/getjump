@@ -1,5 +1,7 @@
+from typing import Dict
+
 # now: 448~2785
-HEIGHT_GAP: dict[int, int] = {
+HEIGHT_GAP: Dict[int, int] = {
     448: 0,
     472: 24,
     480: 0,
@@ -30,7 +32,7 @@ HEIGHT_GAP: dict[int, int] = {
 
 
 # now: 332~1480
-WIDTH_GAP: dict[int, int] = {
+WIDTH_GAP: Dict[int, int] = {
     332: 10,
     426: 8,
     438: 20,
