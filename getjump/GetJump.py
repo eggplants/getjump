@@ -55,6 +55,7 @@ class GetJump:
         only_first: bool = False,
     ) -> Tuple[Optional[str], str, bool]:
         self.__check_url(url)
+        url = url if url.endswith(".json") else url + ".json"
         r = requests.get(url, headers=HEADERS)
         self.__check_content_type(r.headers["content-type"])
         j = r.json()["readableProduct"]
@@ -86,7 +87,7 @@ class GetJump:
             type(url) is str
             and o.scheme == "https"
             and o.hostname in VALID_HOSTS
-            and bool(re.match(r"^/episode/[0-9]+\.json$", o.path))
+            and bool(re.match(r"^/episode/[0-9]+(\.json)?$", o.path))
         )
 
     def __check_url(self, url: str) -> None:
