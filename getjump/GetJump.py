@@ -59,7 +59,9 @@ class GetJump:
     ) -> Tuple[Optional[str], str, bool]:
         self.__check_url(url)
         self.__login(url, username, password)
-        url = url if url.endswith(".json") else url + ".json"
+        url = (
+            url if url.endswith(".json") else re.sub(r"(episode/\d+)", r"\1.json", url)
+        )
         if self._session is None:
             self._session = requests.Session()
         res = self._session.get(url, headers=HEADERS)
@@ -94,7 +96,7 @@ class GetJump:
             type(url) is str
             and o.scheme == "https"
             and o.hostname in VALID_HOSTS
-            and bool(re.match(r"^/episode/[0-9]+(\.json)?$", o.path))
+            and bool(re.match(r"^/episode/\d+(\.json)?$", o.path))
         )
 
     def __login(
