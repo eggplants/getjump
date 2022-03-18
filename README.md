@@ -40,7 +40,7 @@ G = g.GetJump()
 next_uri = "https://shonenjumpplus.com/episode/13932016480028799982.json"
 while next_uri:
     next_uri, prev_title, saved = G.get(next_uri, overwrite=False)
-    # next_uri, prev_title, saved = G.get(next_uri, overwrite=False, username="***", password="***")
+    # next_uri, prev_title, saved = G.get(..., username="***", password="***")
     if saved:
         print("saved:", prev_title)
     print("next:", next_uri)
