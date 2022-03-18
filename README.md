@@ -11,6 +11,7 @@ Retrieve and save images from manga distribution sites using [GigaViewer](https:
 - `https://www.corocoro.jp/episode/***.json`
 - `https://comic-action.com/episode/***.json`
 - `https://comic-days.com/episode/***.json`
+  - allowed: `https://comic-days.com/episode/***.json?from=andsofa`
 - `https://comic-gardo.com/episode/***.json`
 - `https://comic-trail.com/episode/***.json`
 - `https://comic-zenon.com/episode/***.json`
