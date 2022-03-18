@@ -46,7 +46,7 @@ class NeedPurchase(Warning):
 
 class GetJump:
     def __init__(self) -> None:
-        pass
+        self._session = None
 
     def get(
         self,
@@ -54,12 +54,17 @@ class GetJump:
         save_path: str = ".",
         overwrite: bool = True,
         only_first: bool = False,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
     ) -> Tuple[Optional[str], str, bool]:
         self.__check_url(url)
+        self.__login(url, username, password)
         url = url if url.endswith(".json") else url + ".json"
-        r = requests.get(url, headers=HEADERS)
-        self.__check_content_type(r.headers["content-type"])
-        j = r.json()["readableProduct"]
+        if self._session is None:
+            self._session = requests.Session()
+        res = self._session.get(url, headers=HEADERS)
+        self.__check_content_type(res.headers["content-type"])
+        j = res.json()["readableProduct"]
         nxt = j["nextReadableProductUri"]
         nxt = self.__check_next(nxt)
         series_title = j["series"]["title"].replace("/", "／")
@@ -73,6 +78,7 @@ class GetJump:
 
         if not j["isPublic"] and not j["hasPurchased"]:
             warnings.warn(title, NeedPurchase, stacklevel=1)
+            print(j["isPublic"], j["hasPurchased"])
             return nxt, save_dir, False
         else:
             pages = [p for p in j["pageStructure"]["pages"] if "src" in p]
@@ -91,6 +97,41 @@ class GetJump:
             and bool(re.match(r"^/episode/[0-9]+(\.json)?$", o.path))
         )
 
+    def __login(
+        self,
+        url: str,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
+        overwrite: bool = False,
+    ) -> None:
+        if username is None and password is None:
+            return None  # needless to login
+        elif self._session is not None and not overwrite:
+            return None
+        self._session = requests.session()
+        o = urlparse(url)
+        base_url = f"{o.scheme}://{o.netloc}"
+        login_url = f"{base_url}/user_account/login"
+        res = self._session.post(
+            login_url,
+            data={
+                "email_address": username,
+                "password": password,
+                "return_location_path": url,
+            },
+            headers={
+                "User-Agent": HEADERS["User-Agent"],
+                "x-requested-with": "XMLHttpRequest",
+            },
+        )
+        status_code = res.status_code
+        if res.ok:
+            print(f"login successfully ({status_code})")
+        else:
+            raise ValueError(
+                f"Maybe login (to: {login_url}) is failed (code: {status_code}). Is given information correct?"
+            )
+
     def __check_url(self, url: str) -> None:
         if not self.is_valid_uri(url):
             raise ValueError(f"'{url}' is not valid url.")
@@ -98,7 +139,9 @@ class GetJump:
     @staticmethod
     def __check_content_type(type_: str) -> None:
         if "application/json" not in type_:
-            raise TypeError(type_ + " is not application/json")
+            raise TypeError(
+                f"got '{type_}', expect 'application/json'. Is given URL correct?"
+            )
 
     @staticmethod
     def __check_next(nxt: Optional[str]) -> Optional[str]:

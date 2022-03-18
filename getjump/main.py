@@ -43,6 +43,19 @@ def check_url(v: str) -> str:
         raise argparse.ArgumentTypeError(f"'{v}' is invalid.\n" + available_list())
 
 
+def check_login_info(username: str, password: str) -> None:
+    if username is None and password is None:
+        return None
+    elif username is None:
+        raise argparse.ArgumentError(
+            argparse.Action(["-p", "--password"], ""), "Username (-u) is required."
+        )
+    elif password is None:
+        raise argparse.ArgumentError(
+            argparse.Action(["-u", "--username"], ""), "Password (-p) is required."
+        )
+
+
 def parse_args(test: Optional[List[str]] = None) -> argparse.Namespace:
     """Parse arguments."""
     parser = argparse.ArgumentParser(
@@ -92,6 +105,18 @@ def parse_args(test: Optional[List[str]] = None) -> argparse.Namespace:
         action="store_true",
         help="overwrite",
     )
+    parser.add_argument(
+        "-u",
+        "--username",
+        type=str,
+        help="username if you want to login",
+    )
+    parser.add_argument(
+        "-p",
+        "--password",
+        type=str,
+        help="password if you want to login",
+    )
 
     if test:
         return parser.parse_args(test)
@@ -107,12 +132,13 @@ def get_bulk(args: argparse.Namespace) -> None:
     next_uri = args.url
     print("get:", next_uri)
     while next_uri:
-        # print("get:", next_uri)
         next_uri, prev_title, ok = g.get(
             next_uri,
             save_path=args.savedir,
             overwrite=args.overwrite,
             only_first=args.first,
+            username=args.username,
+            password=args.password,
         )
         if ok:
             print("saved:", prev_title)
@@ -131,6 +157,8 @@ def get_one(args: argparse.Namespace) -> None:
         save_path=args.savedir,
         overwrite=args.overwrite,
         only_first=args.first,
+        username=args.username,
+        password=args.password,
     )
     if ok:
         print("saved:", prev_title)
@@ -139,6 +167,7 @@ def get_one(args: argparse.Namespace) -> None:
 
 def main() -> None:
     args = parse_args()
+    check_login_info(args.username, args.password)
     if not check_connectivity():
         raise HttpConnectionNotFountError
     if args.bulk:

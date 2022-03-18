@@ -28,7 +28,6 @@ Retrieve and save images from manga distribution sites using [GigaViewer](https:
 ## Install
 
 ```bash
-# Python>=3.9
 pip install getjump
 ```
 
@@ -41,6 +40,7 @@ G = g.GetJump()
 next_uri = "https://shonenjumpplus.com/episode/13932016480028799982.json"
 while next_uri:
     next_uri, prev_title, saved = G.get(next_uri, overwrite=False)
+    # next_uri, prev_title, saved = G.get(next_uri, overwrite=False, username="***", password="***")
     if saved:
         print("saved:", prev_title)
     print("next:", next_uri)
@@ -79,7 +79,7 @@ done.
 
 ```shellsession
 $ jget -h
-usage: jget [-h] [-b] [-d DIR] [-f] [-o] url
+usage: jget [-h] [-b] [-d DIR] [-f] [-o] [-u USERNAME] [-p PASSWORD] url
 
 Get images from jump web viewer
 
@@ -92,8 +92,13 @@ optional arguments:
   -d DIR, --savedir DIR  directory to save downloaded images (default: .)
   -f, --first            download only first page (default: False)
   -o, --overwrite        overwrite (default: False)
+  -u USERNAME, --username USERNAME
+                         username if you want to login (default: None)
+  -p PASSWORD, --password PASSWORD
+                         password if you want to login (default: None)
 
 available urls:
+  - https://www.corocoro.jp/episode/***.json
   - https://comic-action.com/episode/***.json
   - https://comic-days.com/episode/***.json
   - https://comic-gardo.com/episode/***.json
@@ -106,10 +111,9 @@ available urls:
   - https://magcomi.com/episode/***.json
   - https://pocket.shonenmagazine.com/episode/***.json
   - https://shonenjumpplus.com/episode/***.json
+  - https://www.sunday-webry.com/episode/***.json
   - https://tonarinoyj.jp/episode/***.json
   - https://viewer.heros-web.com/episode/***.json
-  - https://www.sunday-webry.com/episode/***.json
-
 ```
 
 ## Screenshot
