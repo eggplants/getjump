@@ -22,6 +22,7 @@ Retrieve and save images from manga distribution sites using [GigaViewer](https:
 - `https://magcomi.com/episode/***.json`
 - `https://pocket.shonenmagazine.com/episode/***.json`
 - `https://shonenjumpplus.com/episode/***.json`
+  - allowed: `https://shonenjumpplus.com/magazine/***.json`
 - `https://tonarinoyj.jp/episode/***.json`
 - `https://viewer.heros-web.com/episode/***.json`
 - `https://www.sunday-webry.com/episode/***.json`
