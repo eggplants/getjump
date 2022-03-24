@@ -96,7 +96,7 @@ class GetJump:
             type(url) is str
             and o.scheme == "https"
             and o.hostname in VALID_HOSTS
-            and bool(re.match(r"^/episode/\d+(\.json)?$", o.path))
+            and bool(re.match(r"^/(episode|magazine)/\d+(\.json)?$", o.path))
         )
 
     def __login(
