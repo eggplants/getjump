@@ -46,7 +46,7 @@ class NeedPurchase(Warning):
 
 class GetJump:
     def __init__(self) -> None:
-        self._session = None
+        self._session: Optional[requests.Session] = None
 
     def get(
         self,
