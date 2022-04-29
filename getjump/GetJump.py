@@ -48,7 +48,7 @@ class NeedPurchase(Warning):
 
 class GetJump:
     def __init__(self) -> None:
-        self._logined_hosts: list[str] = []
+        self._loggedin_hosts: list[str] = []
         self._session: requests.Session | None = requests.Session()
 
     def get(
@@ -112,8 +112,8 @@ class GetJump:
         o = urlparse(url)
         base_url = f"{o.scheme}://{o.netloc}"
         login_url = f"{base_url}/user_account/login"
-        if base_url in self._logined_hosts and not overwrite:
-            return None
+        if base_url in self._loggedin_hosts and not overwrite:
+            return None  # skip if already being loggedin
         res = self._session.post(
             login_url,
             data={
