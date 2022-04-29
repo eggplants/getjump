@@ -36,9 +36,9 @@ pip install getjump
 ## Library
 
 ```python
-import getjump as g
+from getjump import GetJump as g
 
-G = g.GetJump()
+G = g()
 next_uri = "https://shonenjumpplus.com/episode/13932016480028799982.json"
 while next_uri:
     next_uri, prev_title, saved = G.get(next_uri, overwrite=False)
@@ -47,6 +47,8 @@ while next_uri:
         print("saved:", prev_title)
     print("next:", next_uri)
 ```
+
+### Login
 
 ## CLI
 

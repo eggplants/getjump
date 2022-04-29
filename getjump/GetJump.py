@@ -1,11 +1,13 @@
+from __future__ import annotations
+
 import os
 import re
 import sys
 import warnings
-from typing import Any, Dict, List, Optional, Tuple, cast
+from typing import Any, cast
 from urllib.parse import urlparse
 
-import cv2  # type: ignore
+import cv2  # type: ignore[import]
 import numpy as np
 import numpy.typing as npt
 import requests
@@ -46,7 +48,8 @@ class NeedPurchase(Warning):
 
 class GetJump:
     def __init__(self) -> None:
-        self._session: Optional[requests.Session] = None
+        self._logined_hosts: list[str] = []
+        self._session: requests.Session | None = requests.Session()
 
     def get(
         self,
@@ -54,16 +57,14 @@ class GetJump:
         save_path: str = ".",
         overwrite: bool = True,
         only_first: bool = False,
-        username: Optional[str] = None,
-        password: Optional[str] = None,
-    ) -> Tuple[Optional[str], str, bool]:
+        username: str | None = None,
+        password: str | None = None,
+    ) -> tuple[str | None, str, bool]:
         self.__check_url(url)
-        self.__login(url, username, password)
+        self.login(url, username, password)
         url = (
             url if url.endswith(".json") else re.sub(r"(episode/\d+)", r"\1.json", url)
         )
-        if self._session is None:
-            self._session = requests.Session()
         res = self._session.get(url, headers=HEADERS)
         self.__check_content_type(res.headers["content-type"])
         j = res.json()["readableProduct"]
@@ -99,21 +100,20 @@ class GetJump:
             and bool(re.match(r"^/(episode|magazine)/\d+(\.json)?$", o.path))
         )
 
-    def __login(
+    def login(
         self,
         url: str,
-        username: Optional[str] = None,
-        password: Optional[str] = None,
+        username: str | None = None,
+        password: str | None = None,
         overwrite: bool = False,
-    ) -> None:
+    ) -> requests.Response:
         if username is None and password is None:
             return None  # needless to login
-        elif self._session is not None and not overwrite:
-            return None
-        self._session = requests.session()
         o = urlparse(url)
         base_url = f"{o.scheme}://{o.netloc}"
         login_url = f"{base_url}/user_account/login"
+        if base_url in self._logined_hosts and not overwrite:
+            return None
         res = self._session.post(
             login_url,
             data={
@@ -128,11 +128,12 @@ class GetJump:
         )
         status_code = res.status_code
         if res.ok:
-            print(f"login successfully ({status_code})")
+            self._logged_hosts.append(base_url)
         else:
             raise ValueError(
                 f"Maybe login (to: {login_url}) is failed (code: {status_code}). Is given information correct?"
             )
+        return res
 
     def __check_url(self, url: str) -> None:
         if not self.is_valid_uri(url):
@@ -146,11 +147,11 @@ class GetJump:
             )
 
     @staticmethod
-    def __check_next(nxt: Optional[str]) -> Optional[str]:
+    def __check_next(nxt: str | None) -> str | None:
         return nxt + ".json" if type(nxt) is str else nxt
 
     def __save_images(
-        self, pages: List[Any], save_dir: str, only_first: bool = False
+        self, pages: list[Any], save_dir: str, only_first: bool = False
     ) -> None:
         imgs = []
         for page in pages:
@@ -166,7 +167,7 @@ class GetJump:
             )
             cv2.imwrite(save_img_path, img)
 
-    def __get_image(self, image_dic: Dict[str, Any]) -> npt.ArrayLike:
+    def __get_image(self, image_dic: dict[str, Any]) -> npt.ArrayLike:
         src = image_dic["src"]
         img = requests.get(src, stream=True).raw
         img = np.asarray(bytearray(img.read()), dtype="uint8")

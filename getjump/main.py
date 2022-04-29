@@ -4,7 +4,7 @@ import sys
 from shutil import get_terminal_size
 from typing import List, Optional
 
-from .GetJump import VALID_HOSTS, GetJump
+from .getjump import VALID_HOSTS, GetJump
 
 
 class GetJumpFormatter(
