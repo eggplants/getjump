@@ -4,7 +4,7 @@
 
 Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
 
-*Note: Redistribution of downloaded image data is prohibited. Please keep it to private use.*
+_Note: Redistribution of downloaded image data is prohibited. Please keep it to private use._
 
 ## Available Site
 
@@ -35,6 +35,8 @@ pip install getjump
 
 ## Library
 
+To download all series at once:
+
 ```python
 from getjump import GetJump as g
 
@@ -49,6 +51,18 @@ while next_uri:
 ```
 
 ### Login
+
+To get purchaced or login required works:
+
+```python
+from getjump import GetJump as g
+
+G = g()
+G.login("https://shonenjumpplus.com", username="***", password="***")
+G.login("https://comic-days.com", username="***", password="***")
+...
+G.get(...)
+```
 
 ## CLI
 
