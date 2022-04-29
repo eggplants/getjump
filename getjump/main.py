@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 import argparse
 import http.client as httplib
 import sys
 from shutil import get_terminal_size
-from typing import List, Optional
 
 from .getjump import VALID_HOSTS, GetJump
 
@@ -56,7 +57,7 @@ def check_login_info(username: str, password: str) -> None:
         )
 
 
-def parse_args(test: Optional[List[str]] = None) -> argparse.Namespace:
+def parse_args(test: list[str] | None = None) -> argparse.Namespace:
     """Parse arguments."""
     parser = argparse.ArgumentParser(
         prog="jget",
