@@ -14,8 +14,8 @@
   https://results.pre-commit.ci/latest/github/eggplants/getjump/master
 )
 
-reStructuredText
-Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
+- Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
+   - If you read retrieved comics as convined PDF, use: [eggplants/mkbook](https://github.com/eggplants/mkbook)
 
 _Note: Redistribution of downloaded image data is prohibited. Please keep it to private use._
 
