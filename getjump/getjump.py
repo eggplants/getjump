@@ -49,7 +49,7 @@ class NeedPurchase(Warning):
 class GetJump:
     def __init__(self) -> None:
         self._loggedin_hosts: list[str] = []
-        self._session: requests.Session | None = requests.Session()
+        self._session: requests.Session = requests.Session()
 
     def get(
         self,
@@ -106,7 +106,7 @@ class GetJump:
         username: str | None = None,
         password: str | None = None,
         overwrite: bool = False,
-    ) -> requests.Response:
+    ) -> requests.Response | None:
         if username is None and password is None:
             return None  # needless to login
         o = urlparse(url)
@@ -128,7 +128,7 @@ class GetJump:
         )
         status_code = res.status_code
         if res.ok:
-            self._logged_hosts.append(base_url)
+            self._loggedin_hosts.append(base_url)
         else:
             raise ValueError(
                 f"Maybe login (to: {login_url}) is failed (code: {status_code}). Is given information correct?"

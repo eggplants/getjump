@@ -49,8 +49,8 @@ repos:
           - numpy
           - types-requests
           # - ...
-        files: ^my-best-python-project/
-        args: []
+        files: ^getjump/
+        args: [--strict]
   - repo: https://github.com/crate-ci/typos
     rev: 'typos-v0.9.0'
     hooks:
