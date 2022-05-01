@@ -5,6 +5,7 @@ import http.client as httplib
 import sys
 from shutil import get_terminal_size
 
+from . import __version__
 from .getjump import VALID_HOSTS, GetJump
 
 
@@ -117,6 +118,9 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
         "--password",
         type=str,
         help="password if you want to login",
+    )
+    parser.add_argument(
+        "-V", "--version", action="version", version=__version__
     )
 
     if test:
