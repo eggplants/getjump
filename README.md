@@ -1,8 +1,21 @@
 # getjump
 
-[![PyPI version](https://badge.fury.io/py/getjump.svg)](https://badge.fury.io/py/getjump) [![Maintainability](https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability)](https://codeclimate.com/github/eggplants/getjump/maintainability)
+[![PyPI version](
+  https://badge.fury.io/py/getjump.svg
+  )](
+  https://badge.fury.io/py/getjump
+) [![Maintainability](
+  https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability
+  )](
+  https://codeclimate.com/github/eggplants/getjump/maintainability
+) [![pre-commit.ci status](
+  https://results.pre-commit.ci/badge/github/eggplants/getjump/master.svg
+  )](
+  https://results.pre-commit.ci/latest/github/eggplants/getjump/master
+)
 
-Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
+- Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
+   - If you read retrieved comics as conbined PDF, use: [eggplants/mkbook](https://github.com/eggplants/mkbook)
 
 _Note: Redistribution of downloaded image data is prohibited. Please keep it to private use._
 
