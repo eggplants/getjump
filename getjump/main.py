@@ -119,9 +119,7 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
         type=str,
         help="password if you want to login",
     )
-    parser.add_argument(
-        "-V", "--version", action="version", version=__version__
-    )
+    parser.add_argument("-V", "--version", action="version", version=__version__)
 
     if test:
         return parser.parse_args(test)
