@@ -63,7 +63,9 @@ class GetJump:
         self.__check_url(url)
         self.login(url, username, password)
         url = (
-            url if url.endswith(".json") else re.sub(r"((episode|magazine|volume)/\d+)", r"\1.json", url)
+            url
+            if url.endswith(".json")
+            else re.sub(r"((episode|magazine|volume)/\d+)", r"\1.json", url)
         )
         res = self._session.get(url, headers=HEADERS)
         self.__check_content_type(res.headers["content-type"])
