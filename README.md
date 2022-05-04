@@ -25,6 +25,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://comic-action.com/episode/***.json`
 - `https://comic-days.com/episode/***.json`
   - allowed: `https://comic-days.com/episode/***.json?from=andsofa`
+  - allowed: `https://comic-days.com/volume/***.json`
 - `https://comic-gardo.com/episode/***.json`
 - `https://comic-trail.com/episode/***.json`
 - `https://comic-zenon.com/episode/***.json`
