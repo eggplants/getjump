@@ -70,7 +70,7 @@ jobs:
         id: buildx
         with:
           install: true
-      - uses: docker/metadata-action@v3
+      - uses: docker/metadata-action@v4
         id: meta
         with:
           images: ghcr.io/${{ github.repository }}
