@@ -19,27 +19,31 @@
 
 _Note: Redistribution of downloaded image data is prohibited. Please keep it to private use._
 
-## Available Site
+## Valid URL Formats
 
-- `https://www.corocoro.jp/episode/***.json`
-- `https://comic-action.com/episode/***.json`
-- `https://comic-days.com/episode/***.json`
-  - allowed: `https://comic-days.com/episode/***.json?from=andsofa`
-  - allowed: `https://comic-days.com/volume/***.json`
-- `https://comic-gardo.com/episode/***.json`
-- `https://comic-trail.com/episode/***.json`
-- `https://comic-zenon.com/episode/***.json`
-- `https://comicborder.com/episode/***.json`
-- `https://comicbushi-web.com/episode/***.json`
-- `https://feelweb.jp/episode/***.json`
-- `https://kuragebunch.com/episode/***.json`
-- `https://magcomi.com/episode/***.json`
-- `https://pocket.shonenmagazine.com/episode/***.json`
-- `https://shonenjumpplus.com/episode/***.json`
-  - allowed: `https://shonenjumpplus.com/magazine/***.json`
-- `https://tonarinoyj.jp/episode/***.json`
-- `https://viewer.heros-web.com/episode/***.json`
-- `https://www.sunday-webry.com/episode/***.json`
+- `<host>/{episode,magazine,volume}/<number>`
+  - e.g. <https://shonenjumpplus.com/episode/13932016480028799982>
+- `<host>/(episode|magazine|volume)/<number>.json`
+  - e.g. <https://shonenjumpplus.com/episode/13932016480028799982.json>
+
+## Available Hosts
+
+- `https://www.corocoro.jp`
+- `https://comic-action.com`
+- `https://comic-days.com`
+- `https://comic-gardo.com`
+- `https://comic-trail.com`
+- `https://comic-zenon.com`
+- `https://comicborder.com`
+- `https://comicbushi-web.com`
+- `https://feelweb.jp`
+- `https://kuragebunch.com`
+- `https://magcomi.com`
+- `https://pocket.shonenmagazine.com`
+- `https://shonenjumpplus.com`
+- `https://tonarinoyj.jp`
+- `https://viewer.heros-web.com`
+- `https://www.sunday-webry.com`
 
 ## Install
 
@@ -130,22 +134,22 @@ optional arguments:
                          password if you want to login (default: None)
 
 available urls:
-  - https://www.corocoro.jp/episode/***.json
-  - https://comic-action.com/episode/***.json
-  - https://comic-days.com/episode/***.json
-  - https://comic-gardo.com/episode/***.json
-  - https://comic-trail.com/episode/***.json
-  - https://comic-zenon.com/episode/***.json
-  - https://comicborder.com/episode/***.json
-  - https://comicbushi-web.com/episode/***.json
-  - https://feelweb.jp/episode/***.json
-  - https://kuragebunch.com/episode/***.json
-  - https://magcomi.com/episode/***.json
-  - https://pocket.shonenmagazine.com/episode/***.json
-  - https://shonenjumpplus.com/episode/***.json
-  - https://www.sunday-webry.com/episode/***.json
-  - https://tonarinoyj.jp/episode/***.json
-  - https://viewer.heros-web.com/episode/***.json
+  - https://www.corocoro.jp
+  - https://comic-action.com
+  - https://comic-days.com
+  - https://comic-gardo.com
+  - https://comic-trail.com
+  - https://comic-zenon.com
+  - https://comicborder.com
+  - https://comicbushi-web.com
+  - https://feelweb.jp/episode
+  - https://kuragebunch.com
+  - https://magcomi.com
+  - https://pocket.shonenmagazine.com
+  - https://shonenjumpplus.com
+  - https://www.sunday-webry.com
+  - https://tonarinoyj.jp
+  - https://viewer.heros-web.com
 ```
 
 ## Screenshot
