@@ -22,8 +22,7 @@ class HttpConnectionNotFountError(Exception):
 def available_list() -> str:
     return (
         "available urls:\n  - https://"
-        + "/episode/***.json\n  - https://".join(VALID_HOSTS)
-        + "/episode/***.json"
+        + "\n  - https://".join(VALID_HOSTS)
     )
 
 
