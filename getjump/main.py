@@ -20,10 +20,7 @@ class HttpConnectionNotFountError(Exception):
 
 
 def available_list() -> str:
-    return (
-        "available urls:\n  - https://"
-        + "\n  - https://".join(VALID_HOSTS)
-    )
+    return "available urls:\n  - https://" + "\n  - https://".join(VALID_HOSTS)
 
 
 def check_connectivity(url: str = "www.google.com", timeout: int = 3) -> bool:
