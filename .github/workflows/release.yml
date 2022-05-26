@@ -45,6 +45,8 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
+          cache: pip
+          cache-dependency-path: setup.cfg
           python-version: "3.x"
       - name: Install dependencies
         run: |
