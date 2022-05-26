@@ -1,4 +1,9 @@
+# images
 img/
+*.jpg
+*.jpeg
+*.pdf
+*.png
 *.save
 
 # Byte-compiled / optimized / DLL files

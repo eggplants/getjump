@@ -1,7 +1,7 @@
-from typing import Dict
+from __future__ import annotations
 
 # now: 448~2785
-HEIGHT_GAP: Dict[int, int] = {
+HEIGHT_GAP: dict[int, int] = {
     448: 0,
     472: 24,
     480: 0,
@@ -24,6 +24,7 @@ HEIGHT_GAP: Dict[int, int] = {
     1163: 8,
     1200: 16,
     1400: 22,
+    1593: 22,
     1600: 0,
     1811: 16,
     1826: 0,
@@ -36,7 +37,7 @@ HEIGHT_GAP: Dict[int, int] = {
 
 
 # now: 332~1480
-WIDTH_GAP: Dict[int, int] = {
+WIDTH_GAP: dict[int, int] = {
     332: 10,
     426: 8,
     438: 20,
@@ -83,6 +84,7 @@ WIDTH_GAP: Dict[int, int] = {
     1103: 12,
     1108: 18,
     1109: 20,
+    1100: 10,
     1114: 23,
     1115: 24,
     1120: 0,
