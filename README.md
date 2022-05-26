@@ -8,6 +8,10 @@
   https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability
   )](
   https://codeclimate.com/github/eggplants/getjump/maintainability
+) [![Test](
+  https://github.com/eggplants/getjump/actions/workflows/test.yml/badge.svg
+  )](
+  https://github.com/eggplants/getjump/actions/workflows/test.yml
 ) [![pre-commit.ci status](
   https://results.pre-commit.ci/badge/github/eggplants/getjump/master.svg
   )](
