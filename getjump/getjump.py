@@ -39,7 +39,7 @@ VALID_HOSTS = (
     "shonenjumpplus.com",
     "www.sunday-webry.com",
     "tonarinoyj.jp",
-    "viewer.heroes-web.com",
+    "viewer.heros-web.com",
 )
 
 
