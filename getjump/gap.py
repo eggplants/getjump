@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 # now: 448~2785
+# with invalid height, horizontal lines appears
 HEIGHT_GAP: dict[int, int] = {
     448: 0,
     472: 24,
@@ -26,6 +27,7 @@ HEIGHT_GAP: dict[int, int] = {
     1236: 18,
     1378: 0,
     1400: 22,
+    1536: 0,
     1593: 22,
     1600: 0,
     1811: 16,
@@ -39,6 +41,7 @@ HEIGHT_GAP: dict[int, int] = {
 
 
 # now: 332~1480
+# with invalid width, vartical lines appears
 WIDTH_GAP: dict[int, int] = {
     332: 10,
     426: 8,
@@ -80,6 +83,7 @@ WIDTH_GAP: dict[int, int] = {
     1061: 4,
     1070: 12,
     1073: 14,
+    1080: 22,
     1084: 26,
     1085: 26,
     1091: 0,
