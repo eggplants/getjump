@@ -25,7 +25,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 
 ## Valid URL Formats
 
-- `<host>/{episode,magazine,volume}/<number>`
+- `<host>/(episode|magazine|volume)/<number>`
   - e.g. <https://shonenjumpplus.com/episode/13932016480028799982>
 - `<host>/(episode|magazine|volume)/<number>.json`
   - e.g. <https://shonenjumpplus.com/episode/13932016480028799982.json>
@@ -57,6 +57,36 @@ pip install getjump
 ```
 
 ## Library
+
+### Overview
+
+```python
+from getjump import GetJump
+g = GetJump()  # create session
+
+g.get(
+    url: str,
+    save_path: str = ".",
+    overwrite: bool = True,
+    only_first: bool = False,
+    username: str | None = None,
+    password: str | None = None,
+)
+# >>> (next_uri: str | None, prev_title: str, saved: bool)
+
+g.login(
+    url: str,
+    username: str | None = None,
+    password: str | None = None,
+    overwrite: bool = False,
+)
+# >>> logined_response: requests.Response | None
+
+g.is_valid_uri(url: str)
+# >>> is_valid_uri: bool
+```
+
+### Download all series
 
 To download all series at once:
 
