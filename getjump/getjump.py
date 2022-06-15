@@ -4,7 +4,7 @@ import os
 import re
 import sys
 import warnings
-from typing import Any, cast
+from typing import Any, Tuple, cast
 from urllib.parse import urlparse
 
 import cv2  # type: ignore[import]
@@ -179,7 +179,7 @@ class GetJump:
     @staticmethod
     def __imwrite(filename: str, img: npt.ArrayLike) -> bool:
         _, ext = os.path.splitext(filename)
-        result, n = cast(tuple[bool, np.ndarray[Any, Any]], cv2.imencode(ext, img))
+        result, n = cast(Tuple[bool, np.ndarray], cv2.imencode(ext, img))  # type: ignore[type-arg]
         if result:
             with open(filename, mode="w+b") as f:
                 n.tofile(f)
