@@ -73,8 +73,14 @@ class GetJump:
         j = res.json()["readableProduct"]
         nxt = j["nextReadableProductUri"]
         nxt = self.__check_next(nxt)
-        series_title = j["series"]["title"].replace("/", "／")
+        if j["typeName"] == "magazine":
+            series_title = re.sub(
+                r"\s*([0-9０-９]+年)?([0-9０-９]+月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$", "", j["title"]
+            )
+        elif j["typeName"] == "episode":
+            series_title = j["series"]["title"].replace("/", "／")
         title = j["title"].replace("/", "／")
+        # print(f"[series={repr(series_title)}, title={repr(title)}]")
 
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
