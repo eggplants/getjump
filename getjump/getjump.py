@@ -162,7 +162,7 @@ class GetJump:
     def __save_images(
         self, pages: list[Any], save_dir: str, only_first: bool = False
     ) -> None:
-        imgs = []
+        imgs: list[npt.ArrayLike] = []
         for page in pages:
             img = self.__get_image(page)
             imgs.append(img)
@@ -174,7 +174,17 @@ class GetJump:
             save_img_path = os.path.join(
                 save_dir, f"%0{len_page_digit}d" % idx + ".jpg"
             )
-            cv2.imwrite(save_img_path, img)
+            self.__imwrite(save_img_path, img)
+
+    @staticmethod
+    def __imwrite(filename: str, img: npt.ArrayLike) -> bool:
+        _, ext = os.path.splitext(filename)
+        result, n = cast(tuple[bool, np.ndarray[Any, Any]], cv2.imencode(ext, img))
+        if result:
+            with open(filename, mode="w+b") as f:
+                n.tofile(f)
+            return True
+        return False
 
     def __get_image(self, image_dic: dict[str, Any]) -> npt.ArrayLike:
         src = image_dic["src"]
