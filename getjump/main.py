@@ -104,14 +104,22 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
         help="overwrite",
     )
     parser.add_argument(
+        "-m",
+        "--metadata",
+        action="store_true",
+        help="save metadata as json",
+    )
+    parser.add_argument(
         "-u",
         "--username",
         type=str,
+        metavar="ID",
         help="username if you want to login",
     )
     parser.add_argument(
         "-p",
         "--password",
+        metavar="PW",
         type=str,
         help="password if you want to login",
     )
@@ -138,6 +146,7 @@ def get_bulk(args: argparse.Namespace) -> None:
             only_first=args.first,
             username=args.username,
             password=args.password,
+            save_metadata=args.metadata,
         )
         if ok:
             print("saved:", prev_title)
@@ -158,6 +167,7 @@ def get_one(args: argparse.Namespace) -> None:
         only_first=args.first,
         username=args.username,
         password=args.password,
+        save_metadata=args.metadata,
     )
     if ok:
         print("saved:", prev_title)

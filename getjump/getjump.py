@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import math
 import os
 import re
@@ -70,6 +71,7 @@ class GetJump:
         only_first: bool = False,
         username: str | None = None,
         password: str | None = None,
+        save_metadata: bool = False,
     ) -> tuple[str | None, str, bool]:
         self.__check_url(url)
         self.login(url, username, password)
@@ -105,6 +107,11 @@ class GetJump:
         else:
             pages: list[Page] = [p for p in j["pageStructure"]["pages"] if "src" in p]
 
+        if save_metadata:
+            print(
+                json.dumps(res.json(), indent=4),
+                file=open(os.path.join(save_dir, "metadata.json"), "w"),
+            )
         self.__save_images(pages, save_dir, only_first)
 
         return nxt, save_dir, True
@@ -150,7 +157,8 @@ class GetJump:
             self._loggedin_hosts.append(base_url)
         else:
             raise ValueError(
-                f"Maybe login (to: {login_url}) is failed (code: {status_code}). Is given information correct?"
+                f"Maybe login (to: {login_url}) is failed (code: {status_code}). "
+                "Is given information correct?"
             )
         return res
 

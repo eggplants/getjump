@@ -149,23 +149,23 @@ done.
 
 ```shellsession
 $ jget -h
-usage: jget [-h] [-b] [-d DIR] [-f] [-o] [-u USERNAME] [-p PASSWORD] url
+usage: jget [-h] [-b] [-d DIR] [-f] [-o] [-m] [-u ID] [-p PW] [-V] url
 
 Get images from jump web viewer
 
 positional arguments:
   url                    target url
 
-optional arguments:
+options:
   -h, --help             show this help message and exit
   -b, --bulk             download series in bulk (default: False)
   -d DIR, --savedir DIR  directory to save downloaded images (default: .)
   -f, --first            download only first page (default: False)
   -o, --overwrite        overwrite (default: False)
-  -u USERNAME, --username USERNAME
-                         username if you want to login (default: None)
-  -p PASSWORD, --password PASSWORD
-                         password if you want to login (default: None)
+  -m, --metadata         save metadata as json (default: False)
+  -u ID, --username ID   username if you want to login (default: None)
+  -p PW, --password PW   password if you want to login (default: None)
+  -V, --version          show program's version number and exit
 
 available urls:
   - https://www.corocoro.jp
@@ -177,7 +177,7 @@ available urls:
   - https://comic-zenon.com
   - https://comicborder.com
   - https://comicbushi-web.com
-  - https://feelweb.jp/episode
+  - https://feelweb.jp
   - https://kuragebunch.com
   - https://magcomi.com
   - https://pocket.shonenmagazine.com
