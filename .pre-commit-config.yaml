@@ -46,7 +46,7 @@ repos:
       - id: mypy
         additional_dependencies:
           - types-setuptools
-          - numpy
+          - types-pillow
           - types-requests
           # - ...
         files: ^getjump/

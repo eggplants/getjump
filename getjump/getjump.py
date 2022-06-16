@@ -1,18 +1,16 @@
 from __future__ import annotations
 
+import math
 import os
 import re
 import sys
 import warnings
-from typing import Any, Tuple, cast
+from io import BytesIO
+from typing import TypedDict
 from urllib.parse import urlparse
 
-import cv2  # type: ignore[import]
-import numpy as np
-import numpy.typing as npt
 import requests
-
-from .gap import HEIGHT_GAP, WIDTH_GAP
+from PIL import Image
 
 HEADERS = {
     "User-Agent": (
@@ -41,6 +39,18 @@ VALID_HOSTS = (
     "tonarinoyj.jp",
     "viewer.heros-web.com",
 )
+
+
+class _Page(TypedDict):
+    height: int
+    src: str
+    type: str
+    width: int
+
+
+class Page(_Page, total=False):
+    contentBegin: str
+    contentEnd: str
 
 
 class NeedPurchase(Warning):
@@ -93,7 +103,7 @@ class GetJump:
             print(j["isPublic"], j["hasPurchased"])
             return nxt, save_dir, False
         else:
-            pages = [p for p in j["pageStructure"]["pages"] if "src" in p]
+            pages: list[Page] = [p for p in j["pageStructure"]["pages"] if "src" in p]
 
         self.__save_images(pages, save_dir, only_first)
 
@@ -160,11 +170,11 @@ class GetJump:
         return nxt + ".json" if type(nxt) is str else nxt
 
     def __save_images(
-        self, pages: list[Any], save_dir: str, only_first: bool = False
+        self, pages: list[Page], save_dir: str, only_first: bool = False
     ) -> None:
-        imgs: list[npt.ArrayLike] = []
+        imgs: list[Image.Image] = []
         for page in pages:
-            img = self.__get_image(page)
+            img = self.__get_image(page["src"])
             imgs.append(img)
             if only_first:
                 break
@@ -174,67 +184,29 @@ class GetJump:
             save_img_path = os.path.join(
                 save_dir, f"%0{len_page_digit}d" % idx + ".jpg"
             )
-            self.__imwrite(save_img_path, img)
+            img.save(save_img_path)
 
-    @staticmethod
-    def __imwrite(filename: str, img: npt.ArrayLike) -> bool:
-        _, ext = os.path.splitext(filename)
-        result, n = cast(Tuple[bool, np.ndarray], cv2.imencode(ext, img))  # type: ignore[type-arg]
-        if result:
-            with open(filename, mode="w+b") as f:
-                n.tofile(f)
-            return True
-        return False
-
-    def __get_image(self, image_dic: dict[str, Any]) -> npt.ArrayLike:
-        src = image_dic["src"]
-        img = requests.get(src, stream=True).raw
-        img = np.asarray(bytearray(img.read()), dtype="uint8")
-        img = cv2.imdecode(img, cv2.IMREAD_COLOR)
-        offset = 4
-        height, width = img.shape[:2]
-        dice_height = int((height - self.__get_height_gap(height)) / offset)
-        dice_width = int((width - self.__get_width_gap(width)) / offset)
-        pieces = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-        for x in range(offset):
-            for y in range(offset):
-                x_slice = slice(x * dice_height, (x + 1) * dice_height)
-                y_slice = slice(y * dice_width, (y + 1) * dice_width)
-
-                piece = img[x_slice, y_slice]
-                pieces[y][x] = piece
-
-        img = cv2.vconcat([cv2.hconcat(x) for x in pieces])
-        return cast(npt.ArrayLike, img)
-
-    @staticmethod
-    def __get_height_gap(height: int) -> int:
-        if height in HEIGHT_GAP:
-            if type(HEIGHT_GAP[height]) is not int:
-                raise ValueError(
-                    "Unresearched height (please let me know with issue <https://git.io/J2jV3>): %d"
-                    % height
+    def __get_image(self, image_src: str, div: int = 4, mul: int = 8) -> Image.Image:
+        img = Image.open(BytesIO(requests.get(image_src).content))
+        img_width, img_height = img.size
+        fixed_width = math.floor(float(img_width) / (div * mul)) * mul
+        fixed_height = math.floor(float(img_height) / (div * mul)) * mul
+        buff: list[list[Image.Image]] = []
+        for x in range(div):
+            inbuff: list[Image.Image] = []
+            for y in range(div):
+                cropped = img.crop(
+                    box=(
+                        fixed_width * x,
+                        fixed_height * y,
+                        fixed_width * (x + 1),
+                        fixed_height * (y + 1),
+                    )
                 )
-            else:
-                return HEIGHT_GAP[height]
-        else:
-            raise ValueError(
-                "Unfamiliar height (please let me know with issue <https://git.io/J2jV3>): %d"
-                % height
-            )
+                inbuff.append(cropped)
+            buff.append(inbuff)
 
-    @staticmethod
-    def __get_width_gap(width: int) -> int:
-        if width in WIDTH_GAP:
-            if type(WIDTH_GAP[width]) is not int:
-                raise ValueError(
-                    "Unresearched width (please let me know with issue <https://git.io/J2jV3>): %d"
-                    % width
-                )
-            else:
-                return WIDTH_GAP[width]
-        else:
-            raise ValueError(
-                "Unfamiliar width (please let me know with issue <https://git.io/J2jV3>): %d"
-                % width
-            )
+        for y, inbuff in enumerate(buff):
+            for x, cropped in enumerate(inbuff):
+                img.paste(cropped, (int(fixed_width * x), int(fixed_height * y)))
+        return img
