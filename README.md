@@ -22,6 +22,14 @@
   https://github.com/eggplants/getjump/actions/workflows/test.yml
 )
 
+[![ghcr latest](
+  https://ghcr-badge.herokuapp.com/eggplants/ghcr-badge/latest_tag?trim=major&label=latest
+) ![ghcr size](
+  https://ghcr-badge.herokuapp.com/eggplants/getjump/size)
+](
+  https://github.com/eggplants/getjump/pkgs/container/getjump
+)
+
 - Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
   - If you read retrieved comics as conbined PDF, use: [eggplants/mkbook](https://github.com/eggplants/mkbook)
 
