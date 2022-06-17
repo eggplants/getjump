@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import math
 import os
 import re
 import sys
@@ -197,8 +196,8 @@ class GetJump:
     def __get_image(self, image_src: str, div: int = 4, mul: int = 8) -> Image.Image:
         img = Image.open(BytesIO(requests.get(image_src).content))
         img_width, img_height = img.size
-        fixed_width = math.floor(float(img_width) / (div * mul)) * mul
-        fixed_height = math.floor(float(img_height) / (div * mul)) * mul
+        fixed_width = int(float(img_width) / (div * mul)) * mul
+        fixed_height = int(float(img_height) / (div * mul)) * mul
         buff: list[list[Image.Image]] = []
         for x in range(div):
             inbuff: list[Image.Image] = []
@@ -216,5 +215,5 @@ class GetJump:
 
         for y, inbuff in enumerate(buff):
             for x, cropped in enumerate(inbuff):
-                img.paste(cropped, (int(fixed_width * x), int(fixed_height * y)))
+                img.paste(cropped, box=(fixed_width * x, fixed_height * y))
         return img
