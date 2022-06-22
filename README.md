@@ -23,7 +23,7 @@
 )
 
 [![ghcr latest](
-  https://ghcr-badge.herokuapp.com/eggplants/ghcr-badge/latest_tag?trim=major&label=latest
+  https://ghcr-badge.herokuapp.com/eggplants/getjump/latest_tag?trim=major&label=latest
 ) ![ghcr size](
   https://ghcr-badge.herokuapp.com/eggplants/getjump/size)
 ](
