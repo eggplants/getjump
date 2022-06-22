@@ -35,6 +35,10 @@
 
 _Note: Redistribution of downloaded image data is prohibited. Please keep it to private use._
 
+## Screenshot
+
+![image](https://user-images.githubusercontent.com/42153744/149342180-1131ac3f-2d9b-4938-bf5c-c1b8fb52072b.png)
+
 ## Valid URL Formats
 
 - `<host>/(episode|magazine|volume)/<number>`
@@ -66,6 +70,78 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 
 ```bash
 pip install getjump
+```
+
+## CLI
+
+### Usage
+
+```shellsession
+$ jget https://shonenjumpplus.com/episode/13932016480028799982.json
+get: https://shonenjumpplus.com/episode/13932016480028799982.json
+saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
+done.
+
+$ jget -b https://shonenjumpplus.com/episode/10833519556325021912.json
+get: https://shonenjumpplus.com/episode/10833519556325021912.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/10833519556325022016.json
+saved: ./こちら葛飾区亀有公園前派出所/[第2話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/10833519556325022128.json
+saved: ./こちら葛飾区亀有公園前派出所/[第3話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/10833519556325022500.json
+...
+saved: ./こちら葛飾区亀有公園前派出所/[第1950話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744844.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1951話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744845.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1952話]こちら葛飾区亀有公園前派出所
+next: https://shonenjumpplus.com/episode/13932016480028744846.json
+saved: ./こちら葛飾区亀有公園前派出所/[第1953話]こちら葛飾区亀有公園前派出所
+done.
+```
+
+### Help
+
+```shellsession
+$ jget -h
+usage: jget [-h] [-b] [-d DIR] [-f] [-o] [-m] [-u ID] [-p PW] [-q] [-V] url
+
+Get images from jump web viewer
+
+positional arguments:
+  url                    target url
+
+options:
+  -h, --help             show this help message and exit
+  -b, --bulk             download series in bulk (default: False)
+  -d DIR, --savedir DIR  directory to save downloaded images (default: .)
+  -f, --first            download only first page (default: False)
+  -o, --overwrite        overwrite (default: False)
+  -m, --metadata         save metadata as json (default: False)
+  -u ID, --username ID   username if you want to login (default: None)
+  -p PW, --password PW   password if you want to login (default: None)
+  -q, --quiet            disable console print (default: False)
+  -V, --version          show program's version number and exit
+
+available urls:
+  - https://www.corocoro.jp
+  - https://comic-action.com
+  - https://comic-days.com
+  - https://comic-gardo.com
+  - https://comic-ogyaaa.com
+  - https://comic-trail.com
+  - https://comic-zenon.com
+  - https://comicborder.com
+  - https://comicbushi-web.com
+  - https://feelweb.jp
+  - https://kuragebunch.com
+  - https://magcomi.com
+  - https://pocket.shonenmagazine.com
+  - https://shonenjumpplus.com
+  - https://www.sunday-webry.com
+  - https://tonarinoyj.jp
+  - https://viewer.heros-web.com
 ```
 
 ## Library
@@ -127,81 +203,6 @@ G.login("https://comic-days.com", username="***", password="***")
 ...
 G.get(...)
 ```
-
-## CLI
-
-### Usage
-
-```shellsession
-$ jget https://shonenjumpplus.com/episode/13932016480028799982.json
-get: https://shonenjumpplus.com/episode/13932016480028799982.json
-saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
-done.
-
-$ jget -b https://shonenjumpplus.com/episode/10833519556325021912.json
-get: https://shonenjumpplus.com/episode/10833519556325021912.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/10833519556325022016.json
-saved: ./こちら葛飾区亀有公園前派出所/[第2話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/10833519556325022128.json
-saved: ./こちら葛飾区亀有公園前派出所/[第3話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/10833519556325022500.json
-...
-saved: ./こちら葛飾区亀有公園前派出所/[第1950話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/13932016480028744844.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1951話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/13932016480028744845.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1952話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/13932016480028744846.json
-saved: ./こちら葛飾区亀有公園前派出所/[第1953話]こちら葛飾区亀有公園前派出所
-done.
-```
-
-### Help
-
-```shellsession
-$ jget -h
-usage: jget [-h] [-b] [-d DIR] [-f] [-o] [-m] [-u ID] [-p PW] [-V] url
-
-Get images from jump web viewer
-
-positional arguments:
-  url                    target url
-
-options:
-  -h, --help             show this help message and exit
-  -b, --bulk             download series in bulk (default: False)
-  -d DIR, --savedir DIR  directory to save downloaded images (default: .)
-  -f, --first            download only first page (default: False)
-  -o, --overwrite        overwrite (default: False)
-  -m, --metadata         save metadata as json (default: False)
-  -u ID, --username ID   username if you want to login (default: None)
-  -p PW, --password PW   password if you want to login (default: None)
-  -V, --version          show program's version number and exit
-
-available urls:
-  - https://www.corocoro.jp
-  - https://comic-action.com
-  - https://comic-days.com
-  - https://comic-gardo.com
-  - https://comic-ogyaaa.com
-  - https://comic-trail.com
-  - https://comic-zenon.com
-  - https://comicborder.com
-  - https://comicbushi-web.com
-  - https://feelweb.jp
-  - https://kuragebunch.com
-  - https://magcomi.com
-  - https://pocket.shonenmagazine.com
-  - https://shonenjumpplus.com
-  - https://www.sunday-webry.com
-  - https://tonarinoyj.jp
-  - https://viewer.heros-web.com
-```
-
-## Screenshot
-
-![image](https://user-images.githubusercontent.com/42153744/149342180-1131ac3f-2d9b-4938-bf5c-c1b8fb52072b.png)
 
 ## License
 

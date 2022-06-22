@@ -123,6 +123,12 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
         type=str,
         help="password if you want to login",
     )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="disable console print",
+    )
     parser.add_argument("-V", "--version", action="version", version=__version__)
 
     if test:
@@ -137,7 +143,8 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
 def get_bulk(args: argparse.Namespace) -> None:
     g = GetJump()
     next_uri = args.url
-    print("get:", next_uri)
+    if not args.quiet:
+        print("get:", next_uri)
     while next_uri:
         next_uri, prev_title, ok = g.get(
             next_uri,
@@ -147,19 +154,20 @@ def get_bulk(args: argparse.Namespace) -> None:
             username=args.username,
             password=args.password,
             save_metadata=args.metadata,
+            print_log=not args.quiet,
         )
-        if ok:
-            print("saved:", prev_title)
-        if next_uri is not None:
-            print("next:", next_uri)
-    else:
-        print("done.")
+        if not args.quiet:
+            if ok:
+                print("saved:", prev_title)
+            if next_uri is not None:
+                print("next:", next_uri)
 
 
 def get_one(args: argparse.Namespace) -> None:
     g = GetJump()
     next_uri = args.url
-    print("get:", next_uri)
+    if not args.quiet:
+        print("get:", next_uri)
     _, prev_title, ok = g.get(
         next_uri,
         save_path=args.savedir,
@@ -168,10 +176,10 @@ def get_one(args: argparse.Namespace) -> None:
         username=args.username,
         password=args.password,
         save_metadata=args.metadata,
+        print_log=not args.quiet,
     )
     if ok:
         print("saved:", prev_title)
-    print("done.")
 
 
 def main() -> None:
@@ -183,7 +191,8 @@ def main() -> None:
         get_bulk(args)
     else:
         get_one(args)
-
+    if not args.quiet:
+        print("done.")
 
 if __name__ == "__main__":
     main()
