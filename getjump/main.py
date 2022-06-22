@@ -194,5 +194,6 @@ def main() -> None:
     if not args.quiet:
         print("done.")
 
+
 if __name__ == "__main__":
     main()
