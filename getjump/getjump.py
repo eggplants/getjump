@@ -51,7 +51,7 @@ VALID_HOSTS = (
 )
 
 _MAGAZINE_TITLE_PATTERN = (
-    r"\s*([0-9０-９]+年)?([0-9０-９]+(・[0-9０-９]+合併)?月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$"
+    r"([0-9０-９]+年)?([0-9０-９]+(・[0-9０-９]+合併)?月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$"
 )
 
 
@@ -100,14 +100,11 @@ class GetJump:
         nxt = j["nextReadableProductUri"]
         nxt = self.__check_next(nxt)
         if j["typeName"] == "magazine":
-            series_title = re.sub(
-                _MAGAZINE_TITLE_PATTERN,
-                "",
-                j["title"],
-            )
+            series_title = re.sub(r"\s*" + _MAGAZINE_TITLE_PATTERN, "", j["title"])
+            title = j["title"].replace(series_title, "", 1).strip()
         elif j["typeName"] == "episode":
             series_title = j["series"]["title"].replace("/", "／")
-        title = j["title"].replace("/", "／")
+            title = j["title"].replace("/", "／")
         # print(f"[series={repr(series_title)}, title={repr(title)}]")
 
         save_dir = os.path.join(save_path, series_title, title)
