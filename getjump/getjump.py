@@ -11,6 +11,16 @@ from urllib.parse import urlparse
 
 import requests
 from PIL import Image
+from rich.progress import (
+    BarColumn,
+    MofNCompleteColumn,
+    Progress,
+    SpinnerColumn,
+    TaskProgressColumn,
+    TextColumn,
+    TimeElapsedColumn,
+    TimeRemainingColumn,
+)
 
 HEADERS = {
     "User-Agent": (
@@ -38,6 +48,10 @@ VALID_HOSTS = (
     "www.sunday-webry.com",
     "tonarinoyj.jp",
     "viewer.heros-web.com",
+)
+
+_MAGAZINE_TITLE_PATTERN = (
+    r"\s*([0-9０-９]+年)?([0-9０-９]+(・[0-9０-９]+合併)?月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$"
 )
 
 
@@ -71,6 +85,7 @@ class GetJump:
         username: str | None = None,
         password: str | None = None,
         save_metadata: bool = False,
+        print_log: bool = False,
     ) -> tuple[str | None, str, bool]:
         self.__check_url(url)
         self.login(url, username, password)
@@ -86,7 +101,7 @@ class GetJump:
         nxt = self.__check_next(nxt)
         if j["typeName"] == "magazine":
             series_title = re.sub(
-                r"\s*([0-9０-９]+年)?([0-9０-９]+(・[0-9０-９]+合併)?月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$",
+                _MAGAZINE_TITLE_PATTERN,
                 "",
                 j["title"],
             )
@@ -97,13 +112,15 @@ class GetJump:
 
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
-            print("already existed! (to overwrite, use `-o`)", file=sys.stderr)
+            if print_log:
+                print("already existed! (to overwrite, use `-o`)", file=sys.stderr)
             return nxt, save_dir, False
         os.makedirs(save_dir, exist_ok=True)
 
         if not j["isPublic"] and not j["hasPurchased"]:
             warnings.warn(title, NeedPurchase, stacklevel=1)
-            print(j["isPublic"], j["hasPurchased"])
+            if print_log:
+                print(j["isPublic"], j["hasPurchased"])
             return nxt, save_dir, False
         else:
             pages: list[Page] = [p for p in j["pageStructure"]["pages"] if "src" in p]
@@ -113,7 +130,7 @@ class GetJump:
                 json.dumps(res.json(), indent=4),
                 file=open(os.path.join(save_dir, "metadata.json"), "w"),
             )
-        self.__save_images(pages, save_dir, only_first)
+        self.__save_images(pages, save_dir, only_first, print_log=print_log)
 
         return nxt, save_dir, True
 
@@ -179,21 +196,47 @@ class GetJump:
         return nxt + ".json" if type(nxt) is str else nxt
 
     def __save_images(
-        self, pages: list[Page], save_dir: str, only_first: bool = False
+        self,
+        pages: list[Page],
+        save_dir: str,
+        only_first: bool = False,
+        print_log: bool = False,
     ) -> None:
-        imgs: list[Image.Image] = []
-        for page in pages:
-            img = self.__get_image(page["src"])
-            imgs.append(img)
-            if only_first:
-                break
-
-        len_page_digit = len(str(len(imgs)))
-        for idx, img in enumerate(imgs):
-            save_img_path = os.path.join(
-                save_dir, f"%0{len_page_digit}d" % idx + ".jpg"
+        progress = Progress(
+            SpinnerColumn(),
+            TextColumn("{task.description}"),
+            BarColumn(),
+            TaskProgressColumn(),
+            TextColumn("("),
+            MofNCompleteColumn(),
+            TextColumn("pages"),
+            TextColumn(")"),
+            TextColumn("remain:"),
+            TimeRemainingColumn(),
+            TextColumn("spent:"),
+            TimeElapsedColumn(),
+            disable=not print_log,
+        )
+        with progress:
+            imgs: list[Image.Image] = []
+            task_dl = progress.add_task(
+                "[red]Downloading...", total=1 if only_first else len(pages)
             )
-            img.save(save_img_path)
+            for page in pages:
+                img = self.__get_image(page["src"])
+                imgs.append(img)
+                progress.update(task_dl, advance=1)
+                if only_first:
+                    break
+
+            len_page_digit = len(str(len(imgs)))
+            task_save = progress.add_task("[green]Saving...", total=len(imgs))
+            for idx, img in enumerate(imgs):
+                save_img_path = os.path.join(
+                    save_dir, f"%0{len_page_digit}d" % idx + ".jpg"
+                )
+                img.save(save_img_path)
+                progress.update(task_save, advance=1)
 
     def __get_image(self, image_src: str, div: int = 4, mul: int = 8) -> Image.Image:
         img = Image.open(BytesIO(requests.get(image_src).content))

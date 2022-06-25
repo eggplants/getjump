@@ -44,6 +44,7 @@ repos:
         additional_dependencies:
           - types-pillow
           - types-requests
+          - rich
         files: ^getjump/
         args: [--strict]
   - repo: https://github.com/igorshubovych/markdownlint-cli
