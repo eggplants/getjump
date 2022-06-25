@@ -97,7 +97,7 @@ class GetJump:
         nxt = self.__check_next(nxt)
         if j["typeName"] == "magazine":
             series_title = re.sub(
-                r"\s*([0-9０-９]+年)?([0-9０-９]+月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$", "", j["title"]
+                r"\s*([0-9０-９]+年)?([0-9０-９]+月?(合併)?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$", "", j["title"]
             )
         elif j["typeName"] == "episode":
             series_title = j["series"]["title"].replace("/", "／")
