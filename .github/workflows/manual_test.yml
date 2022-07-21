@@ -37,5 +37,14 @@ jobs:
       run: tree .
     - if: ${{ always() && runner.os == 'Windows' }}
       run: |
-        tree . | Out-File -Encoding utf8 out.txt
-        cat out.txt
+        # https://ja.stackoverflow.com/a/53074
+        $enc = [Console]::OutputEncoding
+        try
+        {
+          [Console]::OutputEncoding = [Text.Encoding]::UTF8
+          Invoke-Expression "tree ."
+        }
+        finally
+        {
+          [Console]::OutputEncoding = $enc
+        }
