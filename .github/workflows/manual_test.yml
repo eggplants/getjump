@@ -31,3 +31,5 @@ jobs:
         pip install -e .[dev]
     - run: getjump --version
     - run: getjump -f "${{ github.event.inputs.url }}"
+    - if: always()
+      run: tree .
