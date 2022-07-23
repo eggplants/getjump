@@ -6,9 +6,11 @@ import re
 import sys
 import warnings
 from io import BytesIO
+from pathlib import Path
 from typing import TypedDict
 from urllib.parse import urlparse
 
+import pathvalidate
 import requests
 from PIL import Image
 from rich.progress import (
@@ -107,7 +109,16 @@ class GetJump:
             title = j["title"].replace("/", "／")
         # print(f"[series={repr(series_title)}, title={repr(title)}]")
 
-        save_dir = os.path.join(save_path, series_title, title)
+        save_dir = str(
+            pathvalidate.sanitize_filepath(  # type: ignore[attr-defined]
+                os.path.join(
+                    save_path,
+                    series_title,
+                    title,
+                ),
+                platform="auto",
+            )
+        )
         if os.path.exists(save_dir) and not overwrite:
             if print_log:
                 print("already existed! (to overwrite, use `-o`)", file=sys.stderr)
@@ -195,7 +206,7 @@ class GetJump:
     def __save_images(
         self,
         pages: list[Page],
-        save_dir: str,
+        save_dir: str | Path,
         only_first: bool = False,
         print_log: bool = False,
     ) -> None:

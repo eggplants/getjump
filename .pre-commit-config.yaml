@@ -42,9 +42,10 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies:
+          - pathvalidate
+          - rich
           - types-pillow
           - types-requests
-          - rich
         files: ^getjump/
         args: [--strict]
   - repo: https://github.com/igorshubovych/markdownlint-cli

@@ -5,6 +5,8 @@ import http.client as httplib
 import sys
 from shutil import get_terminal_size
 
+import pathvalidate
+
 from . import __version__
 from .getjump import VALID_HOSTS, GetJump
 
@@ -54,6 +56,15 @@ def check_login_info(username: str, password: str) -> None:
         )
 
 
+def check_path(v: str) -> str:
+    if pathvalidate.is_valid_filepath(v, platform="auto"):  # type: ignore[attr-defined]
+        return v
+    else:
+        raise argparse.ArgumentTypeError(
+            argparse.Action(["-d", "--savedir"], ""), "invalid path."
+        )
+
+
 def parse_args(test: list[str] | None = None) -> argparse.Namespace:
     """Parse arguments."""
     parser = argparse.ArgumentParser(
@@ -86,7 +97,7 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "-d",
         "--savedir",
-        type=str,
+        type=check_path,
         metavar="DIR",
         default=".",
         help="directory to save downloaded images",
