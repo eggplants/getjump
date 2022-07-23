@@ -5,7 +5,7 @@ on:
     inputs:
       url:
         required: true
-        default: "Target URL"
+        description: "Target URL"
 
 jobs:
   test:
