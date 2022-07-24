@@ -57,7 +57,7 @@ def check_login_info(username: str, password: str) -> None:
 
 
 def check_path(v: str) -> str:
-    if pathvalidate.is_valid_filepath(v, platform="auto"):  # type: ignore[attr-defined]
+    if pathvalidate.is_valid_filepath(v, platform="auto"):
         return v
     else:
         raise argparse.ArgumentTypeError(

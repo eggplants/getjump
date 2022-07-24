@@ -110,7 +110,7 @@ class GetJump:
         # print(f"[series={repr(series_title)}, title={repr(title)}]")
 
         save_dir = str(
-            pathvalidate.sanitize_filepath(  # type: ignore[attr-defined]
+            pathvalidate.sanitize_filepath(
                 os.path.join(
                     save_path,
                     series_title,
