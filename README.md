@@ -186,7 +186,7 @@ while next_uri:
 
 ### Login
 
-To get purchaced or login required works:
+To get purchased or login-required works:
 
 ```python
 from getjump import GetJump as g
