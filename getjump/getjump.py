@@ -106,6 +106,8 @@ class GetJump:
             series_title = j["series"]["title"].replace("/", "／")
             title = j["title"].replace("/", "／")
         # print(f"[series={repr(series_title)}, title={repr(title)}]")
+        series_title = self.__normalize_fname(series_title)
+        title = self.__normalize_fname(title)
 
         save_dir = os.path.join(save_path, series_title, title)
         if os.path.exists(save_dir) and not overwrite:
@@ -259,3 +261,14 @@ class GetJump:
             for x, cropped in enumerate(inbuff):
                 img.paste(cropped, box=(fixed_width * x, fixed_height * y))
         return img
+
+    def __normalize_fname(self, fname: str) -> str:
+        if fname == "":
+            raise ValueError(f"{repr(fname)} is empty.")
+        elif fname.endswith("."):
+            return self.__normalize_fname(fname[:-1])
+        elif fname.startswith(" "):
+            return self.__normalize_fname(fname[1:])
+        elif fname.endswith(" "):
+            return self.__normalize_fname(fname[:-1])
+        return fname
