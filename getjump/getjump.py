@@ -102,7 +102,7 @@ class GetJump:
         if j["typeName"] == "magazine":
             series_title = re.sub(r"\s*" + _MAGAZINE_TITLE_PATTERN, "", j["title"])
             title = j["title"].replace(series_title, "", 1).strip()
-        elif j["typeName"] == "episode":
+        elif j["typeName"] == "episode" or "volume":
             series_title = j["series"]["title"].replace("/", "／")
             title = j["title"].replace("/", "／")
         # print(f"[series={repr(series_title)}, title={repr(title)}]")
