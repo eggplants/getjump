@@ -42,6 +42,7 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies:
+          - types-beautifulsoup4
           - types-pillow
           - types-requests
           - rich

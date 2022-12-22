@@ -10,6 +10,7 @@ from typing import TypedDict
 from urllib.parse import urlparse
 
 import requests
+from bs4 import BeautifulSoup
 from PIL import Image
 from rich.progress import (
     BarColumn,
@@ -50,8 +51,9 @@ VALID_HOSTS = (
     "viewer.heros-web.com",
 )
 
+# https://regex101.com/r/j0nUsd/1
 _MAGAZINE_TITLE_PATTERN = (
-    r"([0-9０-９]+年)?([0-9０-９]+(・[0-9０-９]+合併)?月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$"
+    r"([0-9０-９]+年)?([0-9０-９]+?(・?[0-9０-９]+(合併)?)?月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$"
 )
 
 
@@ -73,7 +75,7 @@ class NeedPurchase(Warning):
 
 class GetJump:
     def __init__(self) -> None:
-        self._loggedin_hosts: list[str] = []
+        self._logged_in_hosts: list[str] = []
         self._session: requests.Session = requests.Session()
 
     def get(
@@ -89,23 +91,29 @@ class GetJump:
     ) -> tuple[str | None, str, bool]:
         self.__check_url(url)
         self.login(url, username, password)
+
         url = (
             url
             if url.endswith(".json")
             else re.sub(r"((episode|magazine|volume)/\d+)", r"\1.json", url)
         )
+
         res = self._session.get(url, headers=HEADERS)
+
         self.__check_content_type(res.headers["content-type"])
+
         j = res.json()["readableProduct"]
+
         nxt = j["nextReadableProductUri"]
         nxt = self.__check_next(nxt)
+
         if j["typeName"] == "magazine":
-            series_title = re.sub(r"\s*" + _MAGAZINE_TITLE_PATTERN, "", j["title"])
-            title = j["title"].replace(series_title, "", 1).strip()
+            series_title = self.__get_series_title(url, j["title"])
+            title = j["title"].replace(series_title, "")
         elif j["typeName"] == "episode" or "volume":
             series_title = j["series"]["title"].replace("/", "／")
             title = j["title"].replace("/", "／")
-        # print(f"[series={repr(series_title)}, title={repr(title)}]")
+
         series_title = self.__normalize_fname(series_title)
         title = self.__normalize_fname(title)
 
@@ -155,8 +163,8 @@ class GetJump:
         o = urlparse(url)
         base_url = f"{o.scheme}://{o.netloc}"
         login_url = f"{base_url}/user_account/login"
-        if base_url in self._loggedin_hosts and not overwrite:
-            return None  # skip if already being loggedin
+        if base_url in self._logged_in_hosts and not overwrite:
+            return None  # skip if already being logged in
         res = self._session.post(
             login_url,
             data={
@@ -171,7 +179,7 @@ class GetJump:
         )
         status_code = res.status_code
         if res.ok:
-            self._loggedin_hosts.append(base_url)
+            self._logged_in_hosts.append(base_url)
         else:
             raise ValueError(
                 f"Maybe login (to: {login_url}) is failed (code: {status_code}). "
@@ -272,3 +280,13 @@ class GetJump:
         elif fname.endswith(" "):
             return self.__normalize_fname(fname[:-1])
         return fname
+
+    def __get_series_title(self, url: str, title: str) -> str:
+        res = self._session.get(url.replace(".json", ""), headers=HEADERS)
+        title_tag = BeautifulSoup(res.content, "html.parser").find(
+            "h1", class_="series-header-title"
+        )
+        if title_tag is None:
+            return re.sub(r"\s*" + _MAGAZINE_TITLE_PATTERN, "", title)
+
+        return title_tag.text
