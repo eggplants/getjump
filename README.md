@@ -1,33 +1,33 @@
 # getjump
 
 [![PyPI version](
-  https://badge.fury.io/py/getjump.svg
+  <https://badge.fury.io/py/getjump.svg>
   )](
-  https://badge.fury.io/py/getjump
+  <https://badge.fury.io/py/getjump>
 ) [![Maintainability](
-  https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability
+  <https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/maintainability>
   )](
-  https://codeclimate.com/github/eggplants/getjump/maintainability
+  <https://codeclimate.com/github/eggplants/getjump/maintainability>
 ) [![pre-commit.ci status](
-  https://results.pre-commit.ci/badge/github/eggplants/getjump/master.svg
+  <https://results.pre-commit.ci/badge/github/eggplants/getjump/master.svg>
   )](
-  https://results.pre-commit.ci/latest/github/eggplants/getjump/master
+  <https://results.pre-commit.ci/latest/github/eggplants/getjump/master>
 ) [![Test Coverage](
-  https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/test_coverage
+  <https://api.codeclimate.com/v1/badges/8d8c16d52b49885dad8c/test_coverage>
   )](
-  https://codeclimate.com/github/eggplants/getjump/test_coverage
+  <https://codeclimate.com/github/eggplants/getjump/test_coverage>
 ) [![Test](
-  https://github.com/eggplants/getjump/actions/workflows/test.yml/badge.svg
+  <https://github.com/eggplants/getjump/actions/workflows/test.yml/badge.svg>
   )](
-  https://github.com/eggplants/getjump/actions/workflows/test.yml
+  <https://github.com/eggplants/getjump/actions/workflows/test.yml>
 )
 
 [![ghcr latest](
-  https://ghcr-badge.deta.dev/eggplants/getjump/latest_tag?trim=major&label=latest
+  <https://ghcr-badge.deta.dev/eggplants/getjump/latest_tag?trim=major&label=latest>
 ) ![ghcr size](
-  https://ghcr-badge.deta.dev/eggplants/getjump/size)
+  <https://ghcr-badge.deta.dev/eggplants/getjump/size)>
 ](
-  https://github.com/eggplants/getjump/pkgs/container/getjump
+  <https://github.com/eggplants/getjump/pkgs/container/getjump>
 )
 
 - Retrieve and save images from manga distribution sites using [GigaViewer](https://prtimes.jp/main/html/searchrlp/company_id/6510)
