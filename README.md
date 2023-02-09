@@ -24,9 +24,9 @@
 
 [![ghcr latest](
   <https://ghcr-badge.deta.dev/eggplants/getjump/latest_tag?trim=major&label=latest>
-) ![ghcr size](
-  <https://ghcr-badge.deta.dev/eggplants/getjump/size)>
-](
+ ) ![ghcr size](
+  <https://ghcr-badge.deta.dev/eggplants/getjump/size>
+)](
   <https://github.com/eggplants/getjump/pkgs/container/getjump>
 )
 
