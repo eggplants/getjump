@@ -1,10 +1,13 @@
 from __future__ import annotations
 
-import pathlib
+from typing import TYPE_CHECKING
 
 import pytest
 
 from getjump import GetJump
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 GET = GetJump().get
 TEST_URLS: dict[str, str] = {
@@ -30,8 +33,6 @@ TEST_URLS: dict[str, str] = {
 
 
 @pytest.mark.parametrize("target_page", TEST_URLS.values())
-def test_site_download(tmp_path: pathlib.Path, target_page: str) -> None:
-    _next_uri, _prev_title, saved = GET(
-        target_page, save_path=str(tmp_path), only_first=True
-    )
+def test_site_download(tmp_path: Path, target_page: str) -> None:
+    _next_uri, _prev_title, saved = GET(target_page, save_path=str(tmp_path), only_first=True)
     assert saved is True

@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import json
-import os
 import re
 import sys
 import warnings
 from io import BytesIO
+from pathlib import Path
 from typing import TypedDict
 from urllib.parse import urlparse
 
@@ -28,7 +28,7 @@ HEADERS = {
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/67.0.3396.99 Safari/537.36"
-    )
+    ),
 }
 
 VALID_HOSTS = (
@@ -52,21 +52,19 @@ VALID_HOSTS = (
 )
 
 # https://regex101.com/r/j0nUsd/1
-_MAGAZINE_TITLE_PATTERN = (
-    r"([0-9０-９]+年)?([0-9０-９]+?(・?[0-9０-９]+(合併)?)?月?号|(Ｎｏ|ｖｏｌ)．[0-9０-９]+)$"
-)
+_MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
 
 
 class _Page(TypedDict):
     height: int
     src: str
-    type: str
+    type: str  # noqa: A003
     width: int
 
 
 class Page(_Page, total=False):
-    contentBegin: str
-    contentEnd: str
+    contentBegin: str  # noqa: N815
+    contentEnd: str  # noqa: N815
 
 
 class NeedPurchase(Warning):
@@ -81,22 +79,19 @@ class GetJump:
     def get(
         self,
         url: str,
-        save_path: str = ".",
+        save_path: str | Path = ".",
+        *,
         overwrite: bool = True,
         only_first: bool = False,
         username: str | None = None,
         password: str | None = None,
         save_metadata: bool = False,
         print_log: bool = False,
-    ) -> tuple[str | None, str, bool]:
+    ) -> tuple[str | None, Path, bool]:
         self.__check_url(url)
-        self.login(url, username, password)
+        self.login(url, username=username, password=password)
 
-        url = (
-            url
-            if url.endswith(".json")
-            else re.sub(r"((episode|magazine|volume)/\d+)", r"\1.json", url)
-        )
+        url = url if url.endswith(".json") else re.sub(r"((episode|magazine|volume)/\d+)", r"\1.json", url)
 
         res = self._session.get(url, headers=HEADERS)
 
@@ -111,33 +106,35 @@ class GetJump:
             series_title = self.__get_series_title(url, j["title"])
             title = j["title"].replace(series_title, "")
         elif j["typeName"] == "episode" or "volume":
-            series_title = j["series"]["title"].replace("/", "／")
-            title = j["title"].replace("/", "／")
+            series_title = j["series"]["title"].replace("/", "/")
+            title = j["title"].replace("/", "/")
+        else:
+            msg = f"Unknown typeName: {j['typeName']}"
+            raise ValueError(msg)
 
         series_title = self.__normalize_fname(series_title)
         title = self.__normalize_fname(title)
 
-        save_dir = os.path.join(save_path, series_title, title)
-        if os.path.exists(save_dir) and not overwrite:
+        save_dir = Path(save_path) / series_title / title
+        if save_dir.exists() and not overwrite:
             if print_log:
-                print("already existed! (to overwrite, use `-o`)", file=sys.stderr)
+                print("already existed! (to overwrite, use `-o`)", file=sys.stderr)  # noqa: T201
             return nxt, save_dir, False
-        os.makedirs(save_dir, exist_ok=True)
+        save_dir.mkdir(exist_ok=True, parents=True)
 
         if not j["isPublic"] and not j["hasPurchased"]:
             warnings.warn(title, NeedPurchase, stacklevel=1)
             if print_log:
-                print(j["isPublic"], j["hasPurchased"])
+                print(j["isPublic"], j["hasPurchased"])  # noqa: T201
             return nxt, save_dir, False
-        else:
-            pages: list[Page] = [p for p in j["pageStructure"]["pages"] if "src" in p]
+        pages: list[Page] = [p for p in j["pageStructure"]["pages"] if "src" in p]
 
         if save_metadata:
             print(
                 json.dumps(res.json(), indent=4),
-                file=open(os.path.join(save_dir, "metadata.json"), "w"),
+                file=(save_dir / "metadata.json").open(mode="w"),
             )
-        self.__save_images(pages, save_dir, only_first, print_log=print_log)
+        self.__save_images(pages, save_dir, only_first=only_first, print_log=print_log)
 
         return nxt, save_dir, True
 
@@ -154,6 +151,7 @@ class GetJump:
     def login(
         self,
         url: str,
+        *,
         username: str | None = None,
         password: str | None = None,
         overwrite: bool = False,
@@ -181,22 +179,20 @@ class GetJump:
         if res.ok:
             self._logged_in_hosts.append(base_url)
         else:
-            raise ValueError(
-                f"Maybe login (to: {login_url}) is failed (code: {status_code}). "
-                "Is given information correct?"
-            )
+            msg = f"Maybe login (to: {login_url}) is failed (code: {status_code}). Is given information correct?"
+            raise ValueError(msg)
         return res
 
     def __check_url(self, url: str) -> None:
         if not self.is_valid_uri(url):
-            raise ValueError(f"'{url}' is not valid url.")
+            msg = f"'{url}' is not valid url."
+            raise ValueError(msg)
 
     @staticmethod
     def __check_content_type(type_: str) -> None:
         if "application/json" not in type_:
-            raise TypeError(
-                f"got '{type_}', expect 'application/json'. Is given URL correct?"
-            )
+            msg = f"got '{type_}', expect 'application/json'. Is given URL correct?"
+            raise TypeError(msg)
 
     @staticmethod
     def __check_next(nxt: str | None) -> str | None:
@@ -205,7 +201,8 @@ class GetJump:
     def __save_images(
         self,
         pages: list[Page],
-        save_dir: str,
+        save_dir: Path,
+        *,
         only_first: bool = False,
         print_log: bool = False,
     ) -> None:
@@ -226,9 +223,7 @@ class GetJump:
         )
         with progress:
             imgs: list[Image.Image] = []
-            task_dl = progress.add_task(
-                "[red]Downloading...", total=1 if only_first else len(pages)
-            )
+            task_dl = progress.add_task("[red]Downloading...", total=1 if only_first else len(pages))
             for page in pages:
                 img = self.__get_image(page["src"])
                 imgs.append(img)
@@ -239,14 +234,13 @@ class GetJump:
             len_page_digit = len(str(len(imgs)))
             task_save = progress.add_task("[green]Saving...", total=len(imgs))
             for idx, img in enumerate(imgs):
-                save_img_path = os.path.join(
-                    save_dir, f"%0{len_page_digit}d" % idx + ".jpg"
-                )
-                img.save(save_img_path)
+                save_img_name = f"%0{len_page_digit}d" % idx
+                save_img_path = Path(save_dir) / save_img_name
+                img.save(save_img_path.with_suffix(".jpg"))
                 progress.update(task_save, advance=1)
 
     def __get_image(self, image_src: str, div: int = 4, mul: int = 8) -> Image.Image:
-        img = Image.open(BytesIO(requests.get(image_src).content))
+        img = Image.open(BytesIO(requests.get(image_src, timeout=10).content))
         img_width, img_height = img.size
         fixed_width = int(float(img_width) / (div * mul)) * mul
         fixed_height = int(float(img_height) / (div * mul)) * mul
@@ -260,7 +254,7 @@ class GetJump:
                         fixed_height * y,
                         fixed_width * (x + 1),
                         fixed_height * (y + 1),
-                    )
+                    ),
                 )
                 inbuff.append(cropped)
             buff.append(inbuff)
@@ -272,20 +266,19 @@ class GetJump:
 
     def __normalize_fname(self, fname: str) -> str:
         if fname == "":
-            raise ValueError(f"{repr(fname)} is empty.")
-        elif fname.endswith("."):
+            msg = f"{fname!r} is empty."
+            raise ValueError(msg)
+        if fname.endswith("."):
             return self.__normalize_fname(fname[:-1])
-        elif fname.startswith(" "):
+        if fname.startswith(" "):
             return self.__normalize_fname(fname[1:])
-        elif fname.endswith(" "):
+        if fname.endswith(" "):
             return self.__normalize_fname(fname[:-1])
         return fname
 
     def __get_series_title(self, url: str, title: str) -> str:
         res = self._session.get(url.replace(".json", ""), headers=HEADERS)
-        title_tag = BeautifulSoup(res.content, "html.parser").find(
-            "h1", class_="series-header-title"
-        )
+        title_tag = BeautifulSoup(res.content, "html.parser").find("h1", class_="series-header-title")
         if title_tag is None:
             return re.sub(r"\s*" + _MAGAZINE_TITLE_PATTERN, "", title)
 

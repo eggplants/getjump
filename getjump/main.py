@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import http.client as httplib
+import socket
 import sys
 from shutil import get_terminal_size
 
@@ -9,9 +10,7 @@ from . import __version__
 from .getjump import VALID_HOSTS, GetJump
 
 
-class GetJumpFormatter(
-    argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter
-):
+class GetJumpFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter):
     pass
 
 
@@ -28,30 +27,25 @@ def check_connectivity(url: str = "www.google.com", timeout: int = 3) -> bool:
     try:
         conn.request("HEAD", "/")
         conn.close()
-        return True
-    except Exception as e:
+    except socket.gaierror as e:
         print(e, file=sys.stderr)
         return False
+    return True
 
 
 def check_url(v: str) -> str:
     if GetJump.is_valid_uri(v):
         return v
-    else:
-        raise argparse.ArgumentTypeError(f"'{v}' is invalid.\n" + available_list())
+    raise argparse.ArgumentTypeError(f"'{v}' is invalid.\n" + available_list())
 
 
 def check_login_info(username: str, password: str) -> None:
     if username is None and password is None:
-        return None
-    elif username is None:
-        raise argparse.ArgumentError(
-            argparse.Action(["-p", "--password"], ""), "Username (-u) is required."
-        )
-    elif password is None:
-        raise argparse.ArgumentError(
-            argparse.Action(["-u", "--username"], ""), "Password (-p) is required."
-        )
+        return
+    if username is None:
+        raise argparse.ArgumentError(argparse.Action(["-p", "--password"], ""), "Username (-u) is required.")
+    if password is None:
+        raise argparse.ArgumentError(argparse.Action(["-u", "--username"], ""), "Password (-p) is required.")
 
 
 def parse_args(test: list[str] | None = None) -> argparse.Namespace:
@@ -61,10 +55,8 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
         formatter_class=(
             lambda prog: GetJumpFormatter(
                 prog,
-                **{
-                    "width": get_terminal_size(fallback=(120, 50)).columns,
-                    "max_help_position": 25,
-                },
+                width=get_terminal_size(fallback=(120, 50)).columns,
+                max_help_position=25,
             )
         ),
         description="Get images from jump web viewer",
@@ -133,9 +125,9 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
 
     if test:
         return parser.parse_args(test)
-    elif len(sys.argv) == 1:
+    if len(sys.argv) == 1:
         parser.print_help()
-        exit(0)
+        sys.exit(0)
     else:
         return parser.parse_args()
 
