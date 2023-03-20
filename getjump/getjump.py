@@ -265,7 +265,7 @@ class GetJump:
         return img
 
     def __normalize_fname(self, fname: str) -> str:
-        if fname == "":
+        if not fname:
             msg = f"{fname!r} is empty."
             raise ValueError(msg)
         if fname.endswith("."):
