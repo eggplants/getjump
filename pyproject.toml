@@ -50,15 +50,6 @@ jget = "getjump.main:main"
 line-length = 120
 target-version = ['py39']
 
-[tool.isort]
-profile = "black"
-
-[tool.mypy]
-pretty = true
-python_version = "3.9"
-show_error_codes = true
-strict = true
-
 [tool.ruff]
 select = ["ALL"]
 ignore = ["D", "ANN101"]
@@ -75,6 +66,15 @@ max-complexity = 18
   "INP001",  # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
   "S101", # Use of assert detected
 ]
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+pretty = true
+python_version = "3.9"
+show_error_codes = true
+strict = true
 
 [tool.poetry_bumpversion.file."getjump/__init__.py"]
 
