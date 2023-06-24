@@ -76,7 +76,7 @@ class GetJump:
         self._logged_in_hosts: list[str] = []
         self._session: requests.Session = requests.Session()
 
-    def get(
+    def get(  # noqa: PLR0913
         self,
         url: str,
         save_path: str | Path = ".",
