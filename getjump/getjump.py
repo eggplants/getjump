@@ -58,7 +58,7 @@ _MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?�
 class _Page(TypedDict):
     height: int
     src: str
-    type: str  # noqa: A003
+    type: str
     width: int
 
 
