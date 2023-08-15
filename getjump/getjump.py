@@ -142,7 +142,7 @@ class GetJump:
     def is_valid_uri(url: str) -> bool:
         o = urlparse(url)
         return (
-            type(url) is str
+            isinstance(url, str)
             and o.scheme == "https"
             and o.hostname in VALID_HOSTS
             and bool(re.match(r"^/(episode|magazine|volume)/\d+(\.json)?$", o.path))
@@ -196,7 +196,7 @@ class GetJump:
 
     @staticmethod
     def __check_next(nxt: str | None) -> str | None:
-        return nxt + ".json" if type(nxt) is str else nxt
+        return nxt + ".json" if isinstance(nxt, str) else nxt
 
     def __save_images(
         self,
