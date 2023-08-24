@@ -142,8 +142,7 @@ class GetJump:
     def is_valid_uri(url: str) -> bool:
         o = urlparse(url)
         return (
-            isinstance(url, str)
-            and o.scheme == "https"
+            o.scheme == "https"
             and o.hostname in VALID_HOSTS
             and bool(re.match(r"^/(episode|magazine|volume)/\d+(\.json)?$", o.path))
         )

@@ -39,7 +39,7 @@ def check_url(v: str) -> str:
     raise argparse.ArgumentTypeError(f"'{v}' is invalid.\n" + available_list())
 
 
-def check_login_info(username: str, password: str) -> None:
+def check_login_info(username: str | None = None, password: str | None = None) -> None:
     if username is None and password is None:
         return
     if username is None:

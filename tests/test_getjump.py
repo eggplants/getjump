@@ -9,7 +9,6 @@ from getjump import GetJump
 if TYPE_CHECKING:
     from pathlib import Path
 
-GET = GetJump().get
 TEST_URLS: dict[str, str] = {
     "andsofa.com": "https://comic-days.com/episode/13932016480029903802?from=andsofa",
     "www.corocoro.jp": "https://www.corocoro.jp/episode/3269754496804969156",
@@ -32,7 +31,8 @@ TEST_URLS: dict[str, str] = {
 }
 
 
-@pytest.mark.parametrize("target_page", TEST_URLS.values())
-def test_site_download(tmp_path: Path, target_page: str) -> None:
-    _next_uri, _prev_title, saved = GET(target_page, save_path=str(tmp_path), only_first=True)
+@pytest.mark.parametrize("target", TEST_URLS)
+def test_site_download(tmp_path: Path, target: str) -> None:
+    g = GetJump()
+    _next_uri, _prev_title, saved = g.get(TEST_URLS[target], save_path=str(tmp_path), only_first=True)
     assert saved is True

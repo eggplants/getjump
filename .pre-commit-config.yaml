@@ -24,7 +24,7 @@ repos:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
 - repo: https://github.com/tox-dev/pyproject-fmt
-  rev: 0.13.1
+  rev: 1.0.0
   hooks:
   - id: pyproject-fmt
 - repo: https://github.com/psf/black
@@ -47,6 +47,28 @@ repos:
     - types-beautifulsoup4
     - types-requests
     - types-pillow
+# - repo: https://github.com/RobertCraigie/pyright-python
+#   rev: v1.1.324
+#   hooks:
+#   - id: pyright
+#     additional_dependencies:
+#     - rich
+#     - beautifulsoup4
+#     - requests
+#     - pillow
+#     - pytest
+- repo: https://github.com/murilo-cunha/mirrors-pyre
+  rev: v0.9.18
+  hooks:
+  - id: pyre-check
+    additional_dependencies:
+    - pytest
+    - rich
+# - repo: https://github.com/hoefling/pre-commit-pytype
+#   rev: 2023.7.21
+#   hooks:
+#   - id: pytype
+#     args: []
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.35.0
   hooks:
