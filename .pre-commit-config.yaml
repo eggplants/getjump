@@ -19,7 +19,7 @@ repos:
   - id: trailing-whitespace
     files: \.(py|sh|rst|yml|yaml)$
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.10.0
+  rev: v2.11.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
@@ -37,7 +37,7 @@ repos:
   - id: ruff
     args: [--fix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.5.1
+  rev: v1.6.0
   hooks:
   - id: mypy
     files: ^getjump/
