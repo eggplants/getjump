@@ -56,7 +56,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://comic-trail.com`
 - `https://comic-zenon.com`
 - `https://comicborder.com`
-- `https://comicbushi-web.com`
+- `https://comic-growl.com`
 - `https://feelweb.jp`
 - `https://kuragebunch.com`
 - `https://magcomi.com`
@@ -127,7 +127,7 @@ available urls:
   - https://comic-trail.com
   - https://comic-zenon.com
   - https://comicborder.com
-  - https://comicbushi-web.com
+  - https://comic-growl.com
   - https://feelweb.jp
   - https://kuragebunch.com
   - https://magcomi.com
