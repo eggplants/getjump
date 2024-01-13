@@ -40,7 +40,7 @@ VALID_HOSTS = (
     "comic-trail.com",
     "comic-zenon.com",
     "comicborder.com",
-    "comicbushi-web.com",
+    "comic-growl.com",
     "feelweb.jp",
     "kuragebunch.com",
     "magcomi.com",
