@@ -51,6 +51,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://www.corocoro.jp`
 - `https://comic-action.com`
 - `https://comic-days.com`
+- `https://comic-earthstar.com`
 - `https://comic-gardo.com`
 - `https://comic-ogyaaa.com`
 - `https://comic-trail.com`
