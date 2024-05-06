@@ -64,8 +64,8 @@ class _Page(TypedDict):
 
 
 class Page(_Page, total=False):
-    contentBegin: str  # noqa: N815
-    contentEnd: str  # noqa: N815
+    contentBegin: str
+    contentEnd: str
 
 
 class NeedPurchase(Warning):
