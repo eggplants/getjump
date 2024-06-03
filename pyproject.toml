@@ -6,9 +6,10 @@ requires = [
   "poetry-core",
 ]
 
-[tool]
 [tool.poetry]
-authors = ["eggplants <w10776e8w@yahoo.co.jp>"]
+authors = [
+  "eggplants <w10776e8w@yahoo.co.jp>",
+]
 classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
@@ -17,9 +18,15 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
 ]
 description = "Get and save images from jump web viewer"
-keywords = ["downloader", "cli", "manga"]
+keywords = [
+  "downloader",
+  "cli",
+  "manga",
+]
 name = "getjump"
-packages = [{include = "getjump"}]
+packages = [
+  { include = "getjump" },
+]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/eggplants/getjump"
@@ -48,24 +55,28 @@ jget = "getjump.main:main"
 
 [tool.black]
 line-length = 120
-target-version = ['py39']
+target-version = [
+  'py39',
+]
 
 [tool.ruff]
-select = ["ALL"]
-ignore = ["D", "ANN101"]
 line-length = 120
 
-[tool.ruff.mccabe]
-max-complexity = 18
-
-[tool.ruff.per-file-ignores]
-"main.py" = [
+select = [
+  "ALL",
+]
+ignore = [
+  "D",
+  "ANN101",
+]
+per-file-ignores."main.py" = [
   "T201", # `print` found
 ]
-"tests/*test_*.py" = [
-  "INP001",  # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
-  "S101", # Use of assert detected
+per-file-ignores."tests/*test_*.py" = [
+  "INP001", # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
+  "S101",   # Use of assert detected
 ]
+mccabe.max-complexity = 18
 
 [tool.mypy]
 pretty = true
@@ -76,6 +87,8 @@ strict = true
 [tool.pyright]
 pythonVersion = "3.9"
 typeCheckingMode = "strict"
+
+[tool]
 
 [tool.pytype]
 python_version = '3.10'
