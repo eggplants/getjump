@@ -61,6 +61,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://feelweb.jp`
 - `https://kuragebunch.com`
 - `https://magcomi.com`
+- `https://ourfeel.jp`
 - `https://pocket.shonenmagazine.com`
 - `https://shonenjumpplus.com`
 - `https://tonarinoyj.jp`

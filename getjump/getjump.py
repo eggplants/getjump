@@ -45,6 +45,7 @@ VALID_HOSTS = (
     "feelweb.jp",
     "kuragebunch.com",
     "magcomi.com",
+    "ourfeel.jp",
     "pocket.shonenmagazine.com",
     "shonenjumpplus.com",
     "www.sunday-webry.com",
