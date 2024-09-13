@@ -26,7 +26,7 @@ repos:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
 - repo: https://github.com/tox-dev/pyproject-fmt
-  rev: 2.2.1
+  rev: 2.2.3
   hooks:
   - id: pyproject-fmt
 - repo: https://github.com/psf/black
@@ -34,7 +34,7 @@ repos:
   hooks:
   - id: black
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.6.3
+  rev: v0.6.5
   hooks:
   - id: ruff
     args: [--fix]
@@ -60,12 +60,13 @@ repos:
 #     - pillow
 #     - pytest
 - repo: https://github.com/murilo-cunha/mirrors-pyre
-  rev: v0.9.18
+  rev: v0.9.22
   hooks:
   - id: pyre-check
     additional_dependencies:
     - pytest
     - rich
+    - types-beautifulsoup4
 # - repo: https://github.com/hoefling/pre-commit-pytype
 #   rev: 2023.7.21
 #   hooks:
