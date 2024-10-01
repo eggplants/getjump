@@ -11,6 +11,7 @@ from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
+from bs4.element import Tag
 from PIL import Image
 from rich.progress import (
     BarColumn,
@@ -93,13 +94,22 @@ class GetJump:
         self.__check_url(url)
         self.login(url, username=username, password=password)
 
-        url = url if url.endswith(".json") else re.sub(r"((episode|magazine|volume)/\d+)", r"\1.json", url)
+        url = url[:-5] if url.endswith(".json") else url
 
         res = self._session.get(url, headers=HEADERS)
-
         self.__check_content_type(res.headers["content-type"])
 
-        j = res.json()["readableProduct"]
+        script_tag = BeautifulSoup(res.content, "html.parser").find("script", id="episode-json")
+        if not isinstance(script_tag, Tag):
+            msg = "wrong type of script element."
+            raise TypeError(msg)
+
+        json_value = script_tag.attrs.get("data-value", None)
+        if json_value is None:
+            msg = "json data is missing."
+            raise ValueError(msg)
+
+        j = json.loads(json_value)["readableProduct"]
 
         nxt = j["nextReadableProductUri"]
         nxt = self.__check_next(nxt)
@@ -191,8 +201,8 @@ class GetJump:
 
     @staticmethod
     def __check_content_type(type_: str) -> None:
-        if "application/json" not in type_:
-            msg = f"got '{type_}', expect 'application/json'. Is given URL correct?"
+        if "text/html" not in type_:
+            msg = f"got '{type_}', expect 'text/html'. Is given URL correct?"
             raise TypeError(msg)
 
     @staticmethod
