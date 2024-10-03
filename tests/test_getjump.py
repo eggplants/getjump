@@ -11,7 +11,6 @@ if TYPE_CHECKING:
 
 TEST_URLS: dict[str, str] = {
     "andsofa.com": "https://comic-days.com/episode/13932016480029903802?from=andsofa",
-    "www.corocoro.jp": "https://www.corocoro.jp/episode/3269754496804969156",
     "comic-action.com": "https://comic-action.com/episode/13933686331621197279",
     "comicbunch-kai.com": "https://kuragebunch.com/episode/2550689798358821780?from=comicbunchkai",
     "comic-days.com": "https://comic-days.com/episode/10834108156631495205",

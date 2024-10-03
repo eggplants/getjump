@@ -33,7 +33,6 @@ HEADERS = {
 }
 
 VALID_HOSTS = (
-    "www.corocoro.jp",
     "comic-action.com",
     "comic-days.com",
     "comic-earthstar.com",

@@ -48,7 +48,6 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 
 ## Available Hosts
 
-- `https://www.corocoro.jp`
 - `https://comic-action.com`
 - `https://comic-days.com`
 - `https://comic-earthstar.com`
@@ -121,9 +120,9 @@ options:
   -V, --version          show program's version number and exit
 
 available urls:
-  - https://www.corocoro.jp
   - https://comic-action.com
   - https://comic-days.com
+  - https://comic-earthstar.com
   - https://comic-gardo.com
   - https://comic-ogyaaa.com
   - https://comic-trail.com
@@ -133,6 +132,7 @@ available urls:
   - https://feelweb.jp
   - https://kuragebunch.com
   - https://magcomi.com
+  - https://ourfeel.jp
   - https://pocket.shonenmagazine.com
   - https://shonenjumpplus.com
   - https://www.sunday-webry.com
