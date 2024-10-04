@@ -142,7 +142,7 @@ class GetJump:
 
         if save_metadata:
             print(
-                json.dumps(json_value, indent=4),
+                json.dumps(json.loads(json_value), indent=4, ensure_ascii=False),
                 file=(save_dir / "metadata.json").open(mode="w"),
             )
         self.__save_images(pages, save_dir, only_first=only_first, print_log=print_log)
