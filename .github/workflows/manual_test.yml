@@ -16,6 +16,8 @@ jobs:
       matrix:
         python-version: ['3.12']
         os: [ubuntu-latest, macos-latest, windows-latest]
+    env:
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
@@ -32,8 +34,6 @@ jobs:
     - name: Test & publish code coverage
       if: ${{ runner.os != 'Windows' && env.CC_TEST_REPORTER_ID != '' }}
       uses: paambaati/codeclimate-action@v9.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: poetry run task test:ci
         coverageLocations: ${{github.workspace}}/cov.xml:coverage.py
