@@ -81,7 +81,7 @@ get: https://kuragebunch.com/episode/10834108156628843815
   Downloading... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% ( 18/18 pages ) remain: 0:00:00 spent: 0:00:02
   Saving...      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% ( 18/18 pages ) remain: 0:00:00 spent: 0:00:00
 saved: 少女終末旅行/01 星空
-next: https://kuragebunch.com/episode/10834108156628843819.json
+next: https://kuragebunch.com/episode/10834108156628843819
 ...
 saved: 少女終末旅行/42 終末
 done.
