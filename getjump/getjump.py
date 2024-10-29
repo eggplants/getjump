@@ -111,7 +111,6 @@ class GetJump:
         j = json.loads(json_value)["readableProduct"]
 
         nxt = j["nextReadableProductUri"]
-        nxt = self.__check_next(nxt)
 
         if j["typeName"] == "magazine":
             series_title = self.__get_series_title(url, j["title"])
@@ -203,10 +202,6 @@ class GetJump:
         if "text/html" not in type_:
             msg = f"got '{type_}', expect 'text/html'. Is given URL correct?"
             raise TypeError(msg)
-
-    @staticmethod
-    def __check_next(nxt: str | None) -> str | None:
-        return nxt + ".json" if isinstance(nxt, str) else nxt
 
     def __save_images(
         self,
