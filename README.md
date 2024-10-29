@@ -43,8 +43,6 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 
 - `<host>/(episode|magazine|volume)/<number>`
   - e.g. <https://shonenjumpplus.com/episode/13932016480028799982>
-- `<host>/(episode|magazine|volume)/<number>.json`
-  - e.g. <https://shonenjumpplus.com/episode/13932016480028799982.json>
 
 ## Available Hosts
 
