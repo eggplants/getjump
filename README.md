@@ -78,21 +78,14 @@ pip install getjump
 ### Usage
 
 ```shellsession
-$ jget https://shonenjumpplus.com/episode/13932016480028799982.json
-get: https://shonenjumpplus.com/episode/13932016480028799982.json
+$ jget -b https://kuragebunch.com/episode/10834108156628843815
+get: https://kuragebunch.com/episode/10834108156628843815
+  Downloading... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% ( 18/18 pages ) remain: 0:00:00 spent: 0:00:02
+  Saving...      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% ( 18/18 pages ) remain: 0:00:00 spent: 0:00:00
+saved: 少女終末旅行/01 星空
+next: https://kuragebunch.com/episode/10834108156628843819.json
 ...
-saved: ./阿波連さんははかれない/[1話]阿波連さんははかれない
-done.
-
-$ jget -b https://shonenjumpplus.com/episode/10833519556325021912.json
-get: https://shonenjumpplus.com/episode/10833519556325021912.json
-...
-saved: ./こちら葛飾区亀有公園前派出所/[第1話]こちら葛飾区亀有公園前派出所
-next: https://shonenjumpplus.com/episode/10833519556325022016.json
-...
-...
-...
-saved: ./こちら葛飾区亀有公園前派出所/[第1953話]こちら葛飾区亀有公園前派出所
+saved: 少女終末旅行/42 終末
 done.
 ```
 
