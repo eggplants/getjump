@@ -6,6 +6,7 @@
   ],
   "search_path": [
     {"site-package": "pytest"},
+    {"site-package": "pillow"},
     {"site-package": "rich"}
   ],
   "strict": true
