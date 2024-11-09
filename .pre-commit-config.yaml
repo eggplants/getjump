@@ -49,29 +49,15 @@ repos:
     - types-beautifulsoup4
     - types-requests
     - types-pillow
-# - repo: https://github.com/RobertCraigie/pyright-python
-#   rev: v1.1.324
-#   hooks:
-#   - id: pyright
-#     additional_dependencies:
-#     - rich
-#     - beautifulsoup4
-#     - requests
-#     - pillow
-#     - pytest
 - repo: https://github.com/murilo-cunha/mirrors-pyre
   rev: v0.9.23
   hooks:
   - id: pyre-check
     additional_dependencies:
+    - types-pillow
     - pytest
     - rich
     - types-beautifulsoup4
-# - repo: https://github.com/hoefling/pre-commit-pytype
-#   rev: 2023.7.21
-#   hooks:
-#   - id: pytype
-#     args: []
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.42.0
   hooks:
