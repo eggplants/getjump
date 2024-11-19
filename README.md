@@ -51,6 +51,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://comic-earthstar.com`
 - `https://comic-gardo.com`
 - `https://comic-ogyaaa.com`
+- `https://comic-seasons.com`
 - `https://comic-trail.com`
 - `https://comic-zenon.com`
 - `https://comicborder.com`
@@ -116,6 +117,7 @@ available urls:
   - https://comic-earthstar.com
   - https://comic-gardo.com
   - https://comic-ogyaaa.com
+  - https://comic-seasons.com
   - https://comic-trail.com
   - https://comic-zenon.com
   - https://comicborder.com

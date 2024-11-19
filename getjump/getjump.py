@@ -38,6 +38,7 @@ VALID_HOSTS = (
     "comic-earthstar.com",
     "comic-gardo.com",
     "comic-ogyaaa.com",
+    "comic-seasons.com",
     "comic-trail.com",
     "comic-zenon.com",
     "comicborder.com",
