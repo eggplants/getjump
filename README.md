@@ -31,7 +31,7 @@
 )
 
 - Retrieve and save images from manga distribution sites using [GigaViewer](https://hatena.co.jp/solutions/gigaviewer)
-  - If you read retrieved comics as conbined PDF, use: [eggplants/mkbook](https://github.com/eggplants/mkbook)
+  - If you read retrieved comics as combined PDF, use: [eggplants/mkbook](https://github.com/eggplants/mkbook)
 
 _Note: Redistribution of downloaded image data is prohibited. Please keep it to private use._
 
