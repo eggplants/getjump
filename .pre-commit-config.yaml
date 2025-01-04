@@ -34,12 +34,12 @@ repos:
   hooks:
   - id: black
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.8.1
+  rev: v0.8.6
   hooks:
   - id: ruff
     args: [--fix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.13.0
+  rev: v1.14.1
   hooks:
   - id: mypy
     files: ^getjump/
@@ -47,17 +47,17 @@ repos:
     additional_dependencies:
     - rich
     - types-beautifulsoup4
+    - types-pillow
     - types-requests
-    - types-pillow
-- repo: https://github.com/murilo-cunha/mirrors-pyre
-  rev: v0.9.23
-  hooks:
-  - id: pyre-check
-    additional_dependencies:
-    - types-pillow
-    - pytest
-    - rich
-    - types-beautifulsoup4
+# - repo: https://github.com/murilo-cunha/mirrors-pyre
+#   rev: v0.9.23
+#   hooks:
+#   - id: pyre-check
+#     additional_dependencies:
+#     - types-pillow
+#     - pytest
+#     - rich
+#     - types-beautifulsoup4
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.43.0
   hooks:

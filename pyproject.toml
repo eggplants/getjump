@@ -62,21 +62,20 @@ target-version = [
 [tool.ruff]
 line-length = 120
 
-select = [
+lint.select = [
   "ALL",
 ]
-ignore = [
+lint.ignore = [
   "D",
-  "ANN101",
 ]
-per-file-ignores."main.py" = [
+lint.per-file-ignores."main.py" = [
   "T201", # `print` found
 ]
-per-file-ignores."tests/*test_*.py" = [
+lint.per-file-ignores."tests/*test_*.py" = [
   "INP001", # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
   "S101",   # Use of assert detected
 ]
-mccabe.max-complexity = 18
+lint.mccabe.max-complexity = 18
 
 [tool.mypy]
 pretty = true

@@ -6,13 +6,14 @@ import sys
 import warnings
 from io import BytesIO
 from pathlib import Path
-from typing import TypedDict
+from typing import TYPE_CHECKING, TypedDict
 from urllib.parse import urlparse
 
-import requests
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 from PIL import Image
+from requests import Session
+from requests.adapters import HTTPAdapter, Retry
 from rich.progress import (
     BarColumn,
     MofNCompleteColumn,
@@ -23,6 +24,9 @@ from rich.progress import (
     TimeElapsedColumn,
     TimeRemainingColumn,
 )
+
+if TYPE_CHECKING:
+    from requests import Response
 
 HEADERS = {
     "User-Agent": (
@@ -77,7 +81,13 @@ class NeedPurchase(Warning):
 class GetJump:
     def __init__(self) -> None:
         self._logged_in_hosts: list[str] = []
-        self._session: requests.Session = requests.Session()
+
+        session = Session()
+        retry_adapter = HTTPAdapter(max_retries=Retry(total=10, backoff_factor=1))
+        session.mount("https://", retry_adapter)
+        session.mount("http://", retry_adapter)
+
+        self._session = session
 
     def get(  # noqa: PLR0913
         self,
@@ -165,7 +175,7 @@ class GetJump:
         username: str | None = None,
         password: str | None = None,
         overwrite: bool = False,
-    ) -> requests.Response | None:
+    ) -> Response | None:
         if username is None and password is None:
             return None  # needless to login
         o = urlparse(url)
@@ -246,7 +256,7 @@ class GetJump:
                 progress.update(task_save, advance=1)
 
     def __get_image(self, image_src: str, div: int = 4, mul: int = 8) -> Image.Image:
-        img = Image.open(BytesIO(requests.get(image_src, timeout=10).content))
+        img = Image.open(BytesIO(self._session.get(image_src, timeout=10).content))
         img_width, img_height = img.size
         fixed_width = int(float(img_width) / (div * mul)) * mul
         fixed_height = int(float(img_height) / (div * mul)) * mul
