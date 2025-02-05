@@ -104,7 +104,7 @@ class GetJump:
         self.__check_url(url)
         self.login(url, username=username, password=password)
 
-        url = url[:-5] if url.endswith(".json") else url
+        url = url.removesuffix(".json")
 
         res = self._session.get(url, headers=HEADERS)
         self.__check_content_type(res.headers["content-type"])
