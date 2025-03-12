@@ -121,6 +121,15 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="disable console print",
     )
+    parser.add_argument(
+        "-e",
+        "--imgext",
+        metavar="imgext",
+        type=str,
+        default="jpg",
+        choices=["jpg", "png", "webp"],
+        help="image file extension for saving (default: jpg)",
+    )
     parser.add_argument("-V", "--version", action="version", version=__version__)
 
     if test:
@@ -147,6 +156,7 @@ def get_bulk(args: argparse.Namespace) -> None:
             password=args.password,
             save_metadata=args.metadata,
             print_log=not args.quiet,
+            imgext=args.imgext,  # Pass imgext here too
         )
         if not args.quiet:
             if ok:
@@ -169,6 +179,7 @@ def get_one(args: argparse.Namespace) -> None:
         password=args.password,
         save_metadata=args.metadata,
         print_log=not args.quiet,
+        imgext=args.imgext,  # Pass imgext here too
     )
     if ok:
         print("saved:", prev_title)

@@ -110,6 +110,7 @@ options:
   -p PW, --password PW   password if you want to login (default: None)
   -q, --quiet            disable console print (default: False)
   -V, --version          show program's version number and exit
+  -e, --imgext           image file extension for saving (enabled: jpg, png, webp)(default: jpg)
 
 available urls:
   - https://comic-action.com

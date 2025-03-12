@@ -100,6 +100,7 @@ class GetJump:
         password: str | None = None,
         save_metadata: bool = False,
         print_log: bool = False,
+        imgext: str = ".jpg",  # <-- Add this line to handle image extension
     ) -> tuple[str | None, Path, bool]:
         self.__check_url(url)
         self.login(url, username=username, password=password)
@@ -155,7 +156,7 @@ class GetJump:
                 json.dumps(json.loads(json_value), indent=4, ensure_ascii=False),
                 file=(save_dir / "metadata.json").open(mode="w"),
             )
-        self.__save_images(pages, save_dir, only_first=only_first, print_log=print_log)
+        self.__save_images(pages, save_dir, only_first=only_first, print_log=print_log, imgext=imgext)
 
         return nxt, save_dir, True
 
@@ -221,6 +222,7 @@ class GetJump:
         *,
         only_first: bool = False,
         print_log: bool = False,
+        imgext: str = "jpg",  # Add imgext parameter with default value as jpg
     ) -> None:
         progress = Progress(
             SpinnerColumn(),
@@ -252,7 +254,7 @@ class GetJump:
             for idx, img in enumerate(imgs):
                 save_img_name = f"%0{len_page_digit}d" % idx
                 save_img_path = Path(save_dir) / save_img_name
-                img.save(save_img_path.with_suffix(".jpg"))
+                img.save(save_img_path.with_suffix(f".{imgext}"))  # Use the specified imgext here
                 progress.update(task_save, advance=1)
 
     def __get_image(self, image_src: str, div: int = 4, mul: int = 8) -> Image.Image:
