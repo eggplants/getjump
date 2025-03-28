@@ -59,7 +59,9 @@ VALID_HOSTS = (
 )
 
 # https://regex101.com/r/j0nUsd/1
-_MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
+_MAGAZINE_TITLE_PATTERN = (
+    r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
+)
 
 
 class _Page(TypedDict):
@@ -109,7 +111,10 @@ class GetJump:
         res = self._session.get(url, headers=HEADERS)
         self.__check_content_type(res.headers["content-type"])
 
-        script_tag = BeautifulSoup(res.content, "html.parser").find("script", id="episode-json")
+        script_tag = BeautifulSoup(res.content, "html.parser").find(
+            "script",
+            id="episode-json",
+        )
         if not isinstance(script_tag, Tag):
             msg = "wrong type of script element."
             raise TypeError(msg)
@@ -139,7 +144,10 @@ class GetJump:
         save_dir = Path(save_path) / series_title / title
         if save_dir.exists() and not overwrite:
             if print_log:
-                print("already existed! (to overwrite, use `-o`)", file=sys.stderr)  # noqa: T201
+                print(  # noqa: T201
+                    "already existed! (to overwrite, use `-o`)",
+                    file=sys.stderr,
+                )
             return nxt, save_dir, False
         save_dir.mkdir(exist_ok=True, parents=True)
 
@@ -239,7 +247,10 @@ class GetJump:
         )
         with progress:
             imgs: list[Image.Image] = []
-            task_dl = progress.add_task("[red]Downloading...", total=1 if only_first else len(pages))
+            task_dl = progress.add_task(
+                "[red]Downloading...",
+                total=1 if only_first else len(pages),
+            )
             for page in pages:
                 img = self.__get_image(page["src"])
                 imgs.append(img)
@@ -294,7 +305,10 @@ class GetJump:
 
     def __get_series_title(self, url: str, title: str) -> str:
         res = self._session.get(url.replace(".json", ""), headers=HEADERS)
-        title_tag = BeautifulSoup(res.content, "html.parser").find("h1", class_="series-header-title")
+        title_tag = BeautifulSoup(res.content, "html.parser").find(
+            "h1",
+            class_="series-header-title",
+        )
         if title_tag is None:
             return re.sub(r"\s*" + _MAGAZINE_TITLE_PATTERN, "", title)
 

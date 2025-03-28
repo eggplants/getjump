@@ -1,12 +1,10 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = [
-  "poetry-core>=2",
-]
+build-backend = "hatchling.build"
+
+requires = [ "hatchling", "uv-dynamic-versioning" ]
 
 [project]
 name = "getjump"
-version = "2.7.1"
 description = "Get and save images from jump web viewer"
 readme = "README.md"
 keywords = [
@@ -15,9 +13,7 @@ keywords = [
   "manga",
 ]
 license = { text = "MIT" }
-authors = [
-  { name = "eggplants", email = "w10776e8w@yahoo.co.jp" },
-]
+authors = [ { name = "eggplants", email = "w10776e8w@yahoo.co.jp" } ]
 requires-python = ">=3.9,<4"
 classifiers = [
   "License :: OSI Approved :: MIT License",
@@ -30,44 +26,46 @@ classifiers = [
   "Topic :: Text Processing :: Linguistic",
   "Typing :: Typed",
 ]
+dynamic = [ "version" ]
 dependencies = [
   "beautifulsoup4>=4.12.3,<5",
   "pillow>=11.1,<12",
   "requests>=2.32.3,<3",
   "rich>=13.9.4,<14",
 ]
+
 urls.Repository = "https://github.com/eggplants/getjump"
 scripts.getjump = "getjump.main:main"
 scripts.jget = "getjump.main:main"
 
-[tool.poetry]
-requires-poetry = ">=2.0"
-packages = [
-  { include = "getjump" },
+[dependency-groups]
+dev = [
+  "mypy>=0.991,<1.15",
+  "pre-commit>=2.20,<4",
+  "pytest>=7.2.2,<9",
+  "pytest-cov>=4,<6",
+  "taskipy>=1.10.3,<2",
+  "types-beautifulsoup4>=4.11.6.7,<5",
+  "types-pillow>=9.4.0.17,<11",
+  "types-requests>=2.28.11.15,<3",
 ]
+docs = [ "pdoc" ]
 
-[tool.poetry.group.dev.dependencies]
-mypy = ">=0.991,<1.15"
-pre-commit = ">=2.20,<4.0"
-taskipy = "^1.10.3"
-types-pillow = ">=9.4.0.17,<11.0.0.0"
-types-beautifulsoup4 = "^4.11.6.7"
-types-requests = "^2.28.11.15"
-pytest = ">=7.2.2,<9.0.0"
-pytest-cov = ">=4,<6"
+[tool.hatch.version]
+# tool.hatch.version.source is not listed in official schema.
+# https://github.com/ninoseki/uv-dynamic-versioning/issues/21
+source = "uv-dynamic-versioning"
 
-[tool.poetry.requires-plugins]
-poetry-plugin-shell = ">=1.0"
+[tool.hatch.build.targets.sdist]
+include = [ "getjump" ]
 
-[tool.black]
-line-length = 120
-target-version = [
-  'py39',
-]
+[tool.hatch.build.targets.wheel]
+include = [ "getjump" ]
 
 [tool.ruff]
 line-length = 120
-
+format.indent-style = "space"
+format.quote-style = "double"
 lint.select = [
   "ALL",
 ]
@@ -78,10 +76,9 @@ lint.per-file-ignores."main.py" = [
   "T201", # `print` found
 ]
 lint.per-file-ignores."tests/*test_*.py" = [
-  "INP001", # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
-  "S101",   # Use of assert detected
+  "S101", # Use of assert detected
 ]
-lint.mccabe.max-complexity = 18
+lint.pydocstyle.convention = "google"
 
 [tool.mypy]
 pretty = true
@@ -93,7 +90,15 @@ strict = true
 pythonVersion = "3.9"
 typeCheckingMode = "strict"
 
-[tool]
+[tool.uv]
+default-groups = [
+  "dev",
+  "docs",
+]
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "semver"
 
 [tool.pytype]
 python_version = '3.10'
@@ -108,3 +113,4 @@ test = "pytest --cov=getjump --cov-report=term"
 "test:ci" = "task test --cov-report=xml:cov.xml"
 lint = "pre-commit run -a"
 profile = "python -m cProfile"
+gendoc = "pdoc getjump -o ./docs --docformat google"

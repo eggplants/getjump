@@ -10,7 +10,10 @@ from . import __version__
 from .getjump import VALID_HOSTS, GetJump
 
 
-class GetJumpFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter):
+class GetJumpFormatter(
+    argparse.ArgumentDefaultsHelpFormatter,
+    argparse.RawDescriptionHelpFormatter,
+):
     pass
 
 
@@ -43,9 +46,15 @@ def check_login_info(username: str | None = None, password: str | None = None) -
     if username is None and password is None:
         return
     if username is None:
-        raise argparse.ArgumentError(argparse.Action(["-p", "--password"], ""), "Username (-u) is required.")
+        raise argparse.ArgumentError(
+            argparse.Action(["-p", "--password"], ""),
+            "Username (-u) is required.",
+        )
     if password is None:
-        raise argparse.ArgumentError(argparse.Action(["-u", "--username"], ""), "Password (-p) is required.")
+        raise argparse.ArgumentError(
+            argparse.Action(["-u", "--username"], ""),
+            "Password (-p) is required.",
+        )
 
 
 def parse_args(test: list[str] | None = None) -> argparse.Namespace:

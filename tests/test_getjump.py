@@ -37,5 +37,9 @@ TEST_URLS: dict[str, str] = {
 @pytest.mark.parametrize("target", TEST_URLS)
 def test_site_download(tmp_path: Path, target: str) -> None:
     g = GetJump()
-    _next_uri, _prev_title, saved = g.get(TEST_URLS[target], save_path=str(tmp_path), only_first=True)
+    _next_uri, _prev_title, saved = g.get(
+        TEST_URLS[target],
+        save_path=str(tmp_path),
+        only_first=True,
+    )
     assert saved is True
