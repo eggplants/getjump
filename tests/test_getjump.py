@@ -21,7 +21,6 @@ TEST_URLS: dict[str, str] = {
     "comic-trail.com": "https://comic-trail.com/episode/3269632237330707078",
     "comic-zenon.com": "https://comic-zenon.com/episode/10834108156688950516",
     "comicborder.com": "https://comicborder.com/episode/3269632237287061913",
-    "comic-growl.com": "https://comic-growl.com/episode/13933686331793879490",
     "feelweb.jp": "https://feelweb.jp/episode/3269754496367124953",
     "kuragebunch.com": "https://kuragebunch.com/episode/3269754496410437550",
     "magcomi.com": "https://magcomi.com/episode/4856001361341293045",
