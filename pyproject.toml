@@ -99,6 +99,7 @@ default-groups = [
 [tool.uv-dynamic-versioning]
 vcs = "git"
 style = "semver"
+fallback-version = "0.0.0"
 
 [tool.pytype]
 python_version = '3.10'
