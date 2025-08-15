@@ -56,6 +56,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://comic-zenon.com`
 - `https://comicborder.com`
 - `https://feelweb.jp`
+- `https://ichicomi.com`
 - `https://kuragebunch.com`
 - `https://magcomi.com`
 - `https://ourfeel.jp`
@@ -120,6 +121,7 @@ available urls:
   - https://comic-zenon.com
   - https://comicborder.com
   - https://feelweb.jp
+  - https://ichicomi.com
   - https://kuragebunch.com
   - https://magcomi.com
   - https://ourfeel.jp

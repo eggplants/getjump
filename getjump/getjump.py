@@ -47,6 +47,7 @@ VALID_HOSTS = (
     "comic-zenon.com",
     "comicborder.com",
     "feelweb.jp",
+    "ichicomi.com",
     "kuragebunch.com",
     "magcomi.com",
     "ourfeel.jp",
