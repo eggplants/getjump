@@ -59,7 +59,6 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://kuragebunch.com`
 - `https://magcomi.com`
 - `https://ourfeel.jp`
-- `https://pocket.shonenmagazine.com`
 - `https://shonenjumpplus.com`
 - `https://tonarinoyj.jp`
 - `https://viewer.heros-web.com`
@@ -124,7 +123,6 @@ available urls:
   - https://kuragebunch.com
   - https://magcomi.com
   - https://ourfeel.jp
-  - https://pocket.shonenmagazine.com
   - https://shonenjumpplus.com
   - https://www.sunday-webry.com
   - https://tonarinoyj.jp
