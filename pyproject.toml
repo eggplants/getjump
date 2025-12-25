@@ -32,7 +32,7 @@ dependencies = [
   "beautifulsoup4>=4.12.3,<5",
   "pillow>=11.1,<12",
   "requests>=2.32.3,<3",
-  "rich>=13.9.4,<14",
+  "rich>=13.9.4,<15",
 ]
 
 urls.Repository = "https://github.com/eggplants/getjump"
@@ -41,10 +41,10 @@ scripts.jget = "getjump.main:main"
 
 [dependency-groups]
 dev = [
-  "mypy>=0.991,<1.15",
-  "pre-commit>=2.20,<4",
+  "mypy>=0.991,<1.20",
+  "pre-commit>=2.20,<5",
   "pytest>=7.2.2,<9",
-  "pytest-cov>=4,<6",
+  "pytest-cov>=4,<8",
   "taskipy>=1.10.3,<2",
   "types-beautifulsoup4>=4.11.6.7,<5",
   "types-pillow>=9.4.0.17,<11",
