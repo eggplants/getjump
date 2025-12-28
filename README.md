@@ -4,25 +4,11 @@
   <https://badge.fury.io/py/getjump.svg>
   )](
   <https://badge.fury.io/py/getjump>
-) [![Maintainability](
-  <https://qlty.sh/badges/030f45a4-2fa5-4268-be52-41a7205c35d3/maintainability.svg>
+) [![CI](
+  <https://github.com/eggplants/getjump/actions/workflows/ci.yml/badge.svg>
   )](
-  <https://qlty.sh/gh/eggplants/projects/getjump>
-) [![pre-commit.ci status](
-  <https://results.pre-commit.ci/badge/github/eggplants/getjump/master.svg>
-  )](
-  <https://results.pre-commit.ci/latest/github/eggplants/getjump/master>
-) [![Code Coverage](
-  <https://qlty.sh/badges/030f45a4-2fa5-4268-be52-41a7205c35d3/test_coverage.svg>
-  )](
-  <https://qlty.sh/gh/eggplants/projects/getjump>
-) [![Test](
-  <https://github.com/eggplants/getjump/actions/workflows/test.yml/badge.svg>
-  )](
-  <https://github.com/eggplants/getjump/actions/workflows/test.yml>
-)
-
-[![ghcr latest](
+  <https://github.com/eggplants/getjump/actions/workflows/ci.yml>
+) [![ghcr latest](
   <https://ghcr-badge.egpl.dev/eggplants/getjump/latest_tag?trim=major&label=latest>
  ) ![ghcr size](
   <https://ghcr-badge.egpl.dev/eggplants/getjump/size>

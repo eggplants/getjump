@@ -1,0 +1,29 @@
+{
+  "language": "en_US",
+  "words": [
+    "distroless",
+    "getjump",
+    "nonroot",
+    "pdoc",
+    "pymarkdown",
+    "pyproject",
+    "pytest",
+    "PYTHONUNBUFFERED",
+    "venv"
+  ],
+  "dictionaries": [
+    "companies",
+    "markdown",
+    "misc",
+    "softwareTerms",
+    "useCompounds"
+  ],
+  "ignorePaths": [
+    ".gitignore",
+    ".cspell.json"
+  ],
+  "features": {
+    "weighted-suggestions": true
+  },
+  "useGitignore": true
+}

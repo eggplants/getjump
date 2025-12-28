@@ -1,10 +1,19 @@
-FROM python:3
 
-ARG VERSION
-ENV VERSION ${VERSION:-master}
+FROM python:3.14-slim
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-RUN pip install --upgrade pip
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN python -m pip install git+https://github.com/eggplants/getjump@${VERSION}
+COPY . /app
 
-ENTRYPOINT ["getjump"]
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+ENV UV_NO_DEV=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+RUN uv sync --locked --no-dev
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+CMD ["uv", "run", "getjump"]

@@ -58,9 +58,7 @@ VALID_HOSTS = (
 )
 
 # https://regex101.com/r/j0nUsd/1
-_MAGAZINE_TITLE_PATTERN = (
-    r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
-)
+_MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
 
 
 class _Page(TypedDict):
