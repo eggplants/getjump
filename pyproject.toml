@@ -84,10 +84,6 @@ lint.per-file-ignores."tests/*test_*.py" = [
 ]
 lint.pydocstyle.convention = "google"
 
-[tool.pyright]
-pythonVersion = "3.9"
-typeCheckingMode = "strict"
-
 [tool.uv-dynamic-versioning]
 vcs = "git"
 style = "semver"
