@@ -39,6 +39,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://comic-ogyaaa.com`
 - `https://comic-seasons.com`
 - `https://comic-trail.com`
+- `https://comic-y-ours.com`
 - `https://comic-zenon.com`
 - `https://comicborder.com`
 - `https://feelweb.jp`
@@ -104,6 +105,7 @@ available urls:
   - https://comic-ogyaaa.com
   - https://comic-seasons.com
   - https://comic-trail.com
+  - https://comic-y-ours.com
   - https://comic-zenon.com
   - https://comicborder.com
   - https://feelweb.jp

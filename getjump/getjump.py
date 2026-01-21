@@ -44,6 +44,7 @@ VALID_HOSTS = (
     "comic-ogyaaa.com",
     "comic-seasons.com",
     "comic-trail.com",
+    "comic-y-ours.com",
     "comic-zenon.com",
     "comicborder.com",
     "feelweb.jp",
