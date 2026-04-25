@@ -55,6 +55,7 @@ build.targets.wheel.include = [ "getjump" ]
 version.source = "uv-dynamic-versioning"
 
 [tool.uv]
+python-downloads = "never"
 default-groups = [
   "dev",
   "docs",
