@@ -11,6 +11,7 @@ from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 from bs4.element import Tag
+from pathvalidate import sanitize_filename
 from PIL import Image
 from requests import Session
 from requests.adapters import HTTPAdapter, Retry
@@ -136,8 +137,8 @@ class GetJump:
             msg = f"Unknown typeName: {j['typeName']}"
             raise ValueError(msg)
 
-        series_title = self.__normalize_fname(series_title)
-        title = self.__normalize_fname(title)
+        series_title = sanitize_filename(series_title)
+        title = sanitize_filename(title)
 
         save_dir = Path(save_path) / series_title / title
         if save_dir.exists() and not overwrite:
@@ -260,7 +261,7 @@ class GetJump:
             task_save = progress.add_task("[green]Saving...", total=len(imgs))
             for idx, img in enumerate(imgs):
                 save_img_name = f"%0{len_page_digit}d" % idx
-                save_img_path = Path(save_dir) / save_img_name
+                save_img_path = save_dir / save_img_name
                 img.save(save_img_path.with_suffix(".jpg"))
                 progress.update(task_save, advance=1)
 
@@ -288,18 +289,6 @@ class GetJump:
             for x, cropped in enumerate(inbuff):
                 img.paste(cropped, box=(fixed_width * x, fixed_height * y))
         return img
-
-    def __normalize_fname(self, fname: str) -> str:
-        if not fname:
-            msg = f"{fname!r} is empty."
-            raise ValueError(msg)
-        if fname.endswith("."):
-            return self.__normalize_fname(fname[:-1])
-        if fname.startswith(" "):
-            return self.__normalize_fname(fname[1:])
-        if fname.endswith(" "):
-            return self.__normalize_fname(fname[:-1])
-        return fname
 
     def __get_series_title(self, url: str, title: str) -> str:
         res = self._session.get(url.replace(".json", ""), headers=HEADERS)
