@@ -32,6 +32,7 @@
         // Python
         "python.testing.pytestEnabled": true,
         "python.defaultInterpreterPath": "./.venv/bin/python",
+        "python-envs.alwaysUseUv": true,
         "[python]": {
           "editor.formatOnSave": true,
           "editor.codeActionsOnSave": {

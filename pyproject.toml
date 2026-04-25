@@ -1,6 +1,5 @@
 [build-system]
 build-backend = "hatchling.build"
-
 requires = [ "hatchling", "uv-dynamic-versioning" ]
 
 [project]
@@ -12,7 +11,7 @@ keywords = [
   "downloader",
   "manga",
 ]
-license = { text = "MIT" }
+license = "MIT"
 authors = [ { name = "eggplants", email = "w10776e8w@yahoo.co.jp" } ]
 requires-python = ">=3.10,<4"
 classifiers = [
@@ -33,7 +32,6 @@ dependencies = [
   "requests>=2.32.3,<3",
   "rich>=13.9.4,<15",
 ]
-
 urls.Repository = "https://github.com/eggplants/getjump"
 scripts.getjump = "getjump.main:main"
 scripts.jget = "getjump.main:main"
@@ -50,22 +48,18 @@ docs = [
   "pdoc>=16",
 ]
 
-[tool.hatch.version]
-source = "uv-dynamic-versioning"
-
-[tool.hatch.build.targets.sdist]
-include = [ "getjump" ]
-
-[tool.hatch.build.targets.wheel]
-include = [ "getjump" ]
+[tool.hatch]
+build.targets.sdist.include = [ "getjump" ]
+build.targets.wheel.include = [ "getjump" ]
+version.source = "uv-dynamic-versioning"
 
 [tool.uv]
-preview = true
 default-groups = [
   "dev",
   "docs",
 ]
 exclude-newer = "P7D"
+preview = true
 
 [tool.ruff]
 line-length = 120
