@@ -50,7 +50,6 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://ourfeel.jp`
 - `https://shonenjumpplus.com`
 - `https://tonarinoyj.jp`
-- `https://viewer.heros-web.com`
 - `https://www.sunday-webry.com`
 
 ## Install
@@ -118,7 +117,6 @@ available urls:
   - https://shonenjumpplus.com
   - https://www.sunday-webry.com
   - https://tonarinoyj.jp
-  - https://viewer.heros-web.com
 ```
 
 ## Library

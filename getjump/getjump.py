@@ -57,7 +57,6 @@ VALID_HOSTS = (
     "shonenjumpplus.com",
     "www.sunday-webry.com",
     "tonarinoyj.jp",
-    "viewer.heros-web.com",
 )
 
 # https://regex101.com/r/j0nUsd/1

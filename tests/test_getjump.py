@@ -30,7 +30,6 @@ TEST_URLS: dict[str, str] = {
     "ourfeel.jp": "https://ourfeel.jp/episode/2550689798581262904",
     "shonenjumpplus.com": "https://shonenjumpplus.com/episode/10834108156648240735",
     "tonarinoyj.jp": "https://tonarinoyj.jp/episode/10834108156765668108",
-    "viewer.heros-web.com": "https://viewer.heros-web.com/episode/10834108156713782929",
     "www.sunday-webry.com": "https://www.sunday-webry.com/episode/3269754496551508334",
 }
 
