@@ -1,4 +1,6 @@
 [tools]
+"aqua:azu/dockerfile-pin" = "latest"
+pinact = "latest"
 python = "latest"
 usage = "latest"
 uv = "latest"
