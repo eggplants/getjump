@@ -46,6 +46,7 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 - `https://ichicomi.com`
 - `https://kuragebunch.com`
 - `https://magcomi.com`
+- `https://mangatime-square.com`
 - `https://ourfeel.jp`
 - `https://shonenjumpplus.com`
 - `https://tonarinoyj.jp`
@@ -112,6 +113,7 @@ available urls:
   - https://ichicomi.com
   - https://kuragebunch.com
   - https://magcomi.com
+  - https://mangatime-square.com
   - https://ourfeel.jp
   - https://shonenjumpplus.com
   - https://www.sunday-webry.com

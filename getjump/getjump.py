@@ -52,6 +52,7 @@ VALID_HOSTS = (
     "ichicomi.com",
     "kuragebunch.com",
     "magcomi.com",
+    "mangatime-square.com",
     "ourfeel.jp",
     "shonenjumpplus.com",
     "www.sunday-webry.com",

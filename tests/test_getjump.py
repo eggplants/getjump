@@ -26,6 +26,7 @@ TEST_URLS: dict[str, str] = {
     "ichicomi.com": "https://ichicomi.com/episode/2550912965919401629",
     "kuragebunch.com": "https://kuragebunch.com/episode/3269754496410437550",
     "magcomi.com": "https://magcomi.com/episode/4856001361341293045",
+    "mangatime-square.com": "https://mangatime-square.com/episode/12207421983667738694",
     "ourfeel.jp": "https://ourfeel.jp/episode/2550689798581262904",
     "shonenjumpplus.com": "https://shonenjumpplus.com/episode/10834108156648240735",
     "tonarinoyj.jp": "https://tonarinoyj.jp/episode/10834108156765668108",
