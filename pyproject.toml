@@ -50,9 +50,9 @@ docs = [
 ]
 
 [tool.hatch]
-build.targets.sdist.include = [ "getjump" ]
-build.targets.wheel.include = [ "getjump" ]
 version.source = "uv-dynamic-versioning"
+build.targets.wheel.include = [ "getjump" ]
+build.targets.sdist.include = [ "getjump" ]
 
 [tool.uv]
 python-downloads = "never"
