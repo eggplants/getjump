@@ -32,25 +32,40 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 
 ## Available Hosts
 
-- `https://comic-action.com`
-- `https://comic-days.com`
-- `https://comic-earthstar.com`
-- `https://comic-gardo.com`
-- `https://comic-ogyaaa.com`
-- `https://comic-seasons.com`
-- `https://comic-trail.com`
-- `https://comic-y-ours.com`
-- `https://comic-zenon.com`
-- `https://comicborder.com`
-- `https://feelweb.jp`
-- `https://ichicomi.com`
-- `https://kuragebunch.com`
-- `https://magcomi.com`
-- `https://mangatime-square.com`
-- `https://ourfeel.jp`
-- `https://shonenjumpplus.com`
-- `https://tonarinoyj.jp`
-- `https://www.sunday-webry.com`
+- <https://comic-action.com>
+- <https://comic-days.com>
+- <https://comic-earthstar.com>
+- <https://comic-gardo.com>
+- <https://comic-ogyaaa.com>
+- <https://comic-seasons.com>
+- <https://comic-trail.com>
+- <https://comic-y-ours.com>
+- <https://comic-zenon.com>
+- <https://comicborder.com>
+- <https://feelweb.jp>
+- <https://ichicomi.com>
+- <https://kuragebunch.com>
+- <https://magcomi.com>
+- <https://mangatime-square.com>
+- <https://ourfeel.jp>
+- <https://shonenjumpplus.com>
+- <https://tonarinoyj.jp>
+- <https://www.sunday-webry.com>
+
+<details><summary>Deleted</summary>
+
+- <https://comicbushi-web.com>
+  - Moved to: <https://comic-growl.com>
+- <https://www.corocoro.jp>
+  - Replaced with original viewer
+- <https://comic-growl.com>
+  - Replaced with [Comici+](https://comici.co.jp/business/comici-plus/)
+- <https://pocket.shonenmagazine.com>
+  - Replaced with original viewer
+- <https://viewer.heros-web.com>
+  - Replaced with [Comici+](https://comici.co.jp/business/comici-plus/)
+
+</details>
 
 ## Install
 
