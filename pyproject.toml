@@ -4,7 +4,7 @@ requires = [ "hatchling", "uv-dynamic-versioning" ]
 
 [project]
 name = "getjump"
-description = "Get and save images from jump web viewer"
+description = "Retrieve and save images from manga distribution sites using GigaViewer"
 readme = "README.md"
 keywords = [
   "cli",
