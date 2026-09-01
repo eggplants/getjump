@@ -9,20 +9,32 @@ readme = "README.md"
 keywords = [
   "cli",
   "downloader",
+  "gigaviewer",
+  "japanese",
   "manga",
+  "manga-downloader",
+  "scraping",
+  "shonen-jump",
 ]
 license = "MIT"
 authors = [ { name = "eggplants", email = "w10776e8w@yahoo.co.jp" } ]
 requires-python = ">=3.10,<4"
 classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
   "License :: OSI Approved :: MIT License",
+  "Natural Language :: Japanese",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
-  "Topic :: Text Processing :: Linguistic",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Multimedia :: Graphics",
+  "Topic :: Utilities",
   "Typing :: Typed",
 ]
 dynamic = [ "version" ]
@@ -33,6 +45,8 @@ dependencies = [
   "requests>=2.32.3,<3",
   "rich>=13.9.4,<16",
 ]
+urls.Documentation = "https://egpl.dev/getjump/"
+urls.Issues = "https://github.com/eggplants/getjump/issues"
 urls.Repository = "https://github.com/eggplants/getjump"
 scripts.getjump = "getjump.main:main"
 scripts.jget = "getjump.main:main"
