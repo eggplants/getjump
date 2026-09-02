@@ -43,3 +43,27 @@ def test_site_download(tmp_path: Path, target: str) -> None:
         only_first=True,
     )
     assert saved is True
+
+
+def test_first_episode_download(tmp_path: Path) -> None:
+    g = GetJump()
+    _next_uri, _prev_title, saved = g.get(
+        "https://comic-days.com/series/2550912964574304403/first_episode",
+        save_path=str(tmp_path),
+        only_first=True,
+    )
+    assert saved is True
+
+
+@pytest.mark.parametrize(
+    ("url", "expected"),
+    [
+        ("https://comic-days.com/series/2550912964574304403/first_episode", True),
+        ("https://comic-days.com/episode/2550912964611244527", True),
+        ("https://comic-days.com/series/2550912964574304403", False),
+        ("https://comic-days.com/series/first_episode", False),
+        ("https://example.com/series/2550912964574304403/first_episode", False),
+    ],
+)
+def test_is_valid_uri(url: str, expected: bool) -> None:  # noqa: FBT001
+    assert GetJump.is_valid_uri(url) is expected

@@ -29,6 +29,8 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
 
 - `<host>/(episode|magazine|volume)/<number>`
   - e.g. <https://shonenjumpplus.com/episode/13932016480028799982>
+- `<host>/series/<number>/first_episode`
+  - e.g. <https://comic-days.com/series/2550912964574304403/first_episode>
 
 ## Available Hosts
 

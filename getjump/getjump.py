@@ -62,6 +62,9 @@ VALID_HOSTS = (
 # https://regex101.com/r/j0nUsd/1
 _MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
 
+# `/series/<id>/first_episode` redirects to the first `/episode/<id>` of the series
+_VALID_PATH_PATTERN = r"^(/(episode|magazine|volume)/\d+(\.json)?|/series/\d+/first_episode)$"
+
 
 class _Page(TypedDict):
     height: int
@@ -169,11 +172,7 @@ class GetJump:
     @staticmethod
     def is_valid_uri(url: str) -> bool:
         o = urlparse(url)
-        return (
-            o.scheme == "https"
-            and o.hostname in VALID_HOSTS
-            and bool(re.match(r"^/(episode|magazine|volume)/\d+(\.json)?$", o.path))
-        )
+        return o.scheme == "https" and o.hostname in VALID_HOSTS and bool(re.match(_VALID_PATH_PATTERN, o.path))
 
     def login(
         self,
