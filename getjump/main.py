@@ -143,12 +143,37 @@ def parse_args(test: list[str] | None = None) -> argparse.Namespace:
 
 def get_bulk(args: argparse.Namespace) -> None:
     g = GetJump()
-    next_uri = args.url
-    if not args.quiet:
-        print("get:", next_uri)
-    while next_uri:
-        next_uri, prev_title, ok = g.get(
-            next_uri,
+    got: set[str] = set()
+    for url in g.get_episode_urls(args.url):
+        next_uri: str | None = url
+        while next_uri and next_uri not in got:
+            got.add(next_uri)
+            if not args.quiet:
+                print("get:", next_uri)
+            next_uri, prev_title, ok = g.get(
+                next_uri,
+                save_path=args.savedir,
+                overwrite=args.overwrite,
+                only_first=args.first,
+                username=args.username,
+                password=args.password,
+                save_metadata=args.metadata,
+                print_log=not args.quiet,
+            )
+            if not args.quiet:
+                if ok:
+                    print("saved:", prev_title)
+                if next_uri is not None:
+                    print("next:", next_uri)
+
+
+def get_one(args: argparse.Namespace) -> None:
+    g = GetJump()
+    for url in g.get_episode_urls(args.url):
+        if not args.quiet:
+            print("get:", url)
+        _, prev_title, ok = g.get(
+            url,
             save_path=args.savedir,
             overwrite=args.overwrite,
             only_first=args.first,
@@ -157,30 +182,8 @@ def get_bulk(args: argparse.Namespace) -> None:
             save_metadata=args.metadata,
             print_log=not args.quiet,
         )
-        if not args.quiet:
-            if ok:
-                print("saved:", prev_title)
-            if next_uri is not None:
-                print("next:", next_uri)
-
-
-def get_one(args: argparse.Namespace) -> None:
-    g = GetJump()
-    next_uri = args.url
-    if not args.quiet:
-        print("get:", next_uri)
-    _, prev_title, ok = g.get(
-        next_uri,
-        save_path=args.savedir,
-        overwrite=args.overwrite,
-        only_first=args.first,
-        username=args.username,
-        password=args.password,
-        save_metadata=args.metadata,
-        print_log=not args.quiet,
-    )
-    if ok:
-        print("saved:", prev_title)
+        if ok:
+            print("saved:", prev_title)
 
 
 def main() -> None:

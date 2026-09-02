@@ -8,6 +8,7 @@ from io import BytesIO
 from pathlib import Path
 from typing import TYPE_CHECKING, TypedDict
 from urllib.parse import urlparse
+from xml.etree import ElementTree as ET
 
 from bs4 import BeautifulSoup
 from bs4.element import Tag
@@ -63,7 +64,9 @@ VALID_HOSTS = (
 _MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
 
 # `/series/<id>/first_episode` redirects to the first `/episode/<id>` of the series
-_VALID_PATH_PATTERN = r"^(/(episode|magazine|volume)/\d+(\.json)?|/series/\d+/first_episode)$"
+# `/rss/series/<id>` is a feed whose items link to `/episode/<id>`s
+_VALID_PATH_PATTERN = r"^(/(episode|magazine|volume)/\d+(\.json)?|/series/\d+/first_episode|/rss/series/\d+)$"
+_RSS_PATH_PATTERN = r"^/rss/series/\d+$"
 
 
 class _Page(TypedDict):
@@ -106,6 +109,7 @@ class GetJump:
         print_log: bool = False,
     ) -> tuple[str | None, Path, bool]:
         self.__check_url(url)
+        self.__reject_feed_url(url)
         self.login(url, username=username, password=password)
 
         url = url.removesuffix(".json")
@@ -169,6 +173,26 @@ class GetJump:
 
         return nxt, save_dir, True
 
+    def get_episode_urls(self, url: str) -> list[str]:
+        """Expand `/rss/series/<id>` into every episode url in the feed.
+
+        Any other valid url is returned as-is.
+        """
+        self.__check_url(url)
+        if not self.__is_feed_url(url):
+            return [url]
+
+        res = self._session.get(url, headers=HEADERS)
+        # the feed is served by an already trusted host (see `VALID_HOSTS`)
+        feed = ET.fromstring(res.text)  # noqa: S314
+        links = [link.strip() for elem in feed.findall("./channel/item/link") if (link := elem.text)]
+        if not links:
+            msg = f"no episode is found in the feed: {url}"
+            raise ValueError(msg)
+        for link in links:
+            self.__check_url(link)
+        return links
+
     @staticmethod
     def is_valid_uri(url: str) -> bool:
         o = urlparse(url)
@@ -212,6 +236,16 @@ class GetJump:
     def __check_url(self, url: str) -> None:
         if not self.is_valid_uri(url):
             msg = f"'{url}' is not valid url."
+            raise ValueError(msg)
+
+    @staticmethod
+    def __is_feed_url(url: str) -> bool:
+        return bool(re.match(_RSS_PATH_PATTERN, urlparse(url).path))
+
+    @classmethod
+    def __reject_feed_url(cls, url: str) -> None:
+        if cls.__is_feed_url(url):
+            msg = f"'{url}' is a feed. Expand it with `get_episode_urls()` first."
             raise ValueError(msg)
 
     @staticmethod

@@ -55,13 +55,48 @@ def test_first_episode_download(tmp_path: Path) -> None:
     assert saved is True
 
 
+RSS_URL = "https://shonenjumpplus.com/rss/series/3269632237310729745"
+
+
+def test_rss_download(tmp_path: Path) -> None:
+    g = GetJump()
+    urls = g.get_episode_urls(RSS_URL)
+    assert len(urls) > 1
+    assert all(GetJump.is_valid_uri(url) for url in urls)
+    # episodes needing purchase are skipped (`NeedPurchase`), so only require any of them to be saved
+    saved_urls = [
+        url
+        for url in urls
+        if g.get(
+            url,
+            save_path=str(tmp_path),
+            only_first=True,
+        )[2]
+    ]
+    assert saved_urls
+
+
+def test_get_episode_urls_passthrough() -> None:
+    g = GetJump()
+    url = "https://comic-days.com/episode/2550912964611244527"
+    assert g.get_episode_urls(url) == [url]
+
+
+def test_get_rejects_feed_url(tmp_path: Path) -> None:
+    g = GetJump()
+    with pytest.raises(ValueError, match="is a feed"):
+        g.get(RSS_URL, save_path=str(tmp_path), only_first=True)
+
+
 @pytest.mark.parametrize(
     ("url", "expected"),
     [
         ("https://comic-days.com/series/2550912964574304403/first_episode", True),
         ("https://comic-days.com/episode/2550912964611244527", True),
+        ("https://shonenjumpplus.com/rss/series/3269632237310729745", True),
         ("https://comic-days.com/series/2550912964574304403", False),
         ("https://comic-days.com/series/first_episode", False),
+        ("https://shonenjumpplus.com/rss/series/", False),
         ("https://example.com/series/2550912964574304403/first_episode", False),
     ],
 )
