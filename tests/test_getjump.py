@@ -55,13 +55,25 @@ def test_first_episode_download(tmp_path: Path) -> None:
     assert saved is True
 
 
+def test_rss_download(tmp_path: Path) -> None:
+    g = GetJump()
+    _next_uri, _prev_title, saved = g.get(
+        "https://shonenjumpplus.com/rss/series/3269632237310729745",
+        save_path=str(tmp_path),
+        only_first=True,
+    )
+    assert saved is True
+
+
 @pytest.mark.parametrize(
     ("url", "expected"),
     [
         ("https://comic-days.com/series/2550912964574304403/first_episode", True),
         ("https://comic-days.com/episode/2550912964611244527", True),
+        ("https://shonenjumpplus.com/rss/series/3269632237310729745", True),
         ("https://comic-days.com/series/2550912964574304403", False),
         ("https://comic-days.com/series/first_episode", False),
+        ("https://shonenjumpplus.com/rss/series/", False),
         ("https://example.com/series/2550912964574304403/first_episode", False),
     ],
 )

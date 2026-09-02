@@ -8,6 +8,7 @@ from io import BytesIO
 from pathlib import Path
 from typing import TYPE_CHECKING, TypedDict
 from urllib.parse import urlparse
+from xml.etree import ElementTree as ET
 
 from bs4 import BeautifulSoup
 from bs4.element import Tag
@@ -63,7 +64,9 @@ VALID_HOSTS = (
 _MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?月?号|(No|vol).[0-90-9]+)$"
 
 # `/series/<id>/first_episode` redirects to the first `/episode/<id>` of the series
-_VALID_PATH_PATTERN = r"^(/(episode|magazine|volume)/\d+(\.json)?|/series/\d+/first_episode)$"
+# `/rss/series/<id>` is a feed whose first item links to an `/episode/<id>`
+_VALID_PATH_PATTERN = r"^(/(episode|magazine|volume)/\d+(\.json)?|/series/\d+/first_episode|/rss/series/\d+)$"
+_RSS_PATH_PATTERN = r"^/rss/series/\d+$"
 
 
 class _Page(TypedDict):
@@ -106,6 +109,7 @@ class GetJump:
         print_log: bool = False,
     ) -> tuple[str | None, Path, bool]:
         self.__check_url(url)
+        url = self.__resolve_rss_url(url)
         self.login(url, username=username, password=password)
 
         url = url.removesuffix(".json")
@@ -213,6 +217,21 @@ class GetJump:
         if not self.is_valid_uri(url):
             msg = f"'{url}' is not valid url."
             raise ValueError(msg)
+
+    def __resolve_rss_url(self, url: str) -> str:
+        """Return the first episode link of a feed, or `url` itself if it is not a feed."""
+        if not re.match(_RSS_PATH_PATTERN, urlparse(url).path):
+            return url
+
+        res = self._session.get(url, headers=HEADERS)
+        # the feed is served by an already trusted host (see `VALID_HOSTS`)
+        link = ET.fromstring(res.text).findtext("./channel/item/link")  # noqa: S314
+        if link is None:
+            msg = f"no episode is found in the feed: {url}"
+            raise ValueError(msg)
+        link = link.strip()
+        self.__check_url(link)
+        return link
 
     @staticmethod
     def __check_content_type(type_: str) -> None:

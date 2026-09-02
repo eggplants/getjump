@@ -31,6 +31,8 @@ _Note: Redistribution of downloaded image data is prohibited. Please keep it to 
   - e.g. <https://shonenjumpplus.com/episode/13932016480028799982>
 - `<host>/series/<number>/first_episode`
   - e.g. <https://comic-days.com/series/2550912964574304403/first_episode>
+- `<host>/rss/series/<number>` (the first episode in the feed is downloaded)
+  - e.g. <https://shonenjumpplus.com/rss/series/3269632237310729745>
 
 ## Available Hosts
 
