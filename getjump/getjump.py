@@ -3,10 +3,11 @@ from __future__ import annotations
 import json
 import re
 import sys
+import time
 import warnings
 from io import BytesIO
 from pathlib import Path
-from typing import TYPE_CHECKING, TypedDict
+from typing import TYPE_CHECKING, Any, TypedDict
 from urllib.parse import urlparse
 from xml.etree import ElementTree as ET
 
@@ -68,6 +69,11 @@ _MAGAZINE_TITLE_PATTERN = r"([0-90-9]+年)?([0-90-9]+?(・?[0-90-9]+(合併)?)?�
 _VALID_PATH_PATTERN = r"^(/(episode|magazine|volume)/\d+(\.json)?|/series/\d+/first_episode|/rss/series/\d+)$"
 _RSS_PATH_PATTERN = r"^/rss/series/\d+$"
 
+# `script#episode-json` is occasionally missing from an otherwise valid response
+# (the site sporadically serves a placeholder page), so retry before giving up
+_EPISODE_JSON_RETRY = 3
+_EPISODE_JSON_RETRY_INTERVAL = 3
+
 
 class _Page(TypedDict):
     height: int
@@ -83,6 +89,13 @@ class Page(_Page, total=False):
 
 class NeedPurchase(Warning):
     pass
+
+
+class EpisodeJsonNotFoundError(Exception):
+    def __init__(self, url: str) -> None:
+        super().__init__(
+            f"`script#episode-json` is not found in '{url}'. The site may be temporarily unavailable.",
+        )
 
 
 class GetJump:
@@ -114,30 +127,15 @@ class GetJump:
 
         url = url.removesuffix(".json")
 
-        res = self._session.get(url, headers=HEADERS)
-        self.__check_content_type(res.headers["content-type"])
-
-        script_tag = BeautifulSoup(res.content, "html.parser").find(
-            "script",
-            id="episode-json",
-        )
-        if not isinstance(script_tag, Tag):
-            msg = "wrong type of script element."
-            raise TypeError(msg)
-
-        json_value = script_tag.attrs.get("data-value", None)
-        if json_value is None:
-            msg = "json data is missing."
-            raise ValueError(msg)
-
-        j = json.loads(str(json_value))["readableProduct"]
+        episode_json = self.__get_episode_json(url)
+        j = episode_json["readableProduct"]
 
         nxt = j["nextReadableProductUri"]
 
         if j["typeName"] == "magazine":
             series_title = self.__get_series_title(url, j["title"])
             title = j["title"].replace(series_title, "")
-        elif j["typeName"] == "episode" or "volume":
+        elif j["typeName"] in ("episode", "volume"):
             series_title = j["series"]["title"].replace("/", "/")
             title = j["title"].replace("/", "/")
         else:
@@ -159,15 +157,13 @@ class GetJump:
 
         if not j["isPublic"] and not j["hasPurchased"]:
             warnings.warn(title, NeedPurchase, stacklevel=1)
-            if print_log:
-                print(j["isPublic"], j["hasPurchased"])  # noqa: T201
             return nxt, save_dir, False
         pages: list[Page] = [p for p in j["pageStructure"]["pages"] if "src" in p]
 
         if save_metadata:
-            print(
-                json.dumps(json.loads(str(json_value)), indent=4, ensure_ascii=False),
-                file=(save_dir / "metadata.json").open(mode="w"),
+            (save_dir / "metadata.json").write_text(
+                json.dumps(episode_json, indent=4, ensure_ascii=False),
+                encoding="utf-8",
             )
         self.__save_images(pages, save_dir, only_first=only_first, print_log=print_log)
 
@@ -232,6 +228,27 @@ class GetJump:
             msg = f"Maybe login (to: {login_url}) is failed (code: {status_code}). Is given information correct?"
             raise ValueError(msg)
         return res
+
+    def __get_episode_json(self, url: str) -> dict[str, Any]:
+        for attempt in range(_EPISODE_JSON_RETRY):
+            res = self._session.get(url, headers=HEADERS)
+            self.__check_content_type(res.headers["content-type"])
+
+            script_tag = BeautifulSoup(res.content, "html.parser").find(
+                "script",
+                id="episode-json",
+            )
+            if isinstance(script_tag, Tag):
+                json_value = script_tag.attrs.get("data-value", None)
+                if json_value is None:
+                    msg = f"json data is missing in '{url}'."
+                    raise ValueError(msg)
+                return dict(json.loads(str(json_value)))
+
+            if attempt + 1 < _EPISODE_JSON_RETRY:
+                time.sleep(_EPISODE_JSON_RETRY_INTERVAL * (attempt + 1))
+
+        raise EpisodeJsonNotFoundError(url)
 
     def __check_url(self, url: str) -> None:
         if not self.is_valid_uri(url):
