@@ -48,8 +48,8 @@ dependencies = [
 urls.Documentation = "https://egpl.dev/getjump/"
 urls.Issues = "https://github.com/eggplants/getjump/issues"
 urls.Repository = "https://github.com/eggplants/getjump"
-scripts.getjump = "getjump.main:main"
-scripts.jget = "getjump.main:main"
+scripts.getjump = "getjump.cli:main"
+scripts.jget = "getjump.cli:main"
 
 [dependency-groups]
 dev = [
@@ -87,7 +87,7 @@ lint.ignore = [
   "CPY001", # Missing copyright notice (this project does not use file headers)
   "D",
 ]
-lint.per-file-ignores."main.py" = [
+lint.per-file-ignores."getjump/cli.py" = [
   "T201", # `print` found
 ]
 lint.per-file-ignores."tests/*test_*.py" = [
