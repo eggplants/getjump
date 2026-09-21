@@ -1,4 +1,4 @@
-# getjump
+# getjump 👉 [getjmanga](https://github.com/eggplants/getjmanga)
 
 [![PyPI version](
   <https://badge.fury.io/py/getjump.svg>
